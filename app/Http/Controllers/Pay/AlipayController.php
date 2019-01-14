@@ -18,6 +18,9 @@ class AlipayController extends Controller
         $this->app_id = env('PAT_ID');
         $this->gate_way = env('PAY_WAY');
         $this->notify_url = env('PAY_URL');
+
+
+        
     }
 
     public function test($o_id)
