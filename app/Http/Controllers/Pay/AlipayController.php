@@ -176,7 +176,7 @@ class AlipayController extends Controller
     public function async()
     {
         $data = json_encode($_POST);
-        file_put_contents('./alipay.log' , $data , 'FILE_APPEND');
+        file_put_contents('logs/alipay.log' , $data , 'FILE_APPEND');
 /*
         $data = json_encode($_POST);
         $log_str = '>>>> ' . date('Y-m-d H:i:s') . $data . "<<<<\n\n";
