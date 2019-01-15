@@ -21,7 +21,7 @@ class OrderController extends Controller
     }
 
     public function pay(){
-        $url='http://www.cms.laravel.com';
+        $url='http://chaiq.qianqianya.xyz';
         $client=new Client([
             'base_uri'=>$url,
             'timeout'=>2.0,
@@ -33,7 +33,6 @@ class OrderController extends Controller
 
     /**
      * 订单展示
-     *liruixiang
      */
     public function orderList(){
         $list=OrderModel::where(['uid'=>$this->u_id])->get();
@@ -115,6 +114,7 @@ class OrderController extends Controller
     public function orderPay($o_id){
         //查询订单
         $order_info = OrderModel::where(['o_id'=>$o_id])->first();
+        //var_dump($order_info);exit;
         if(!$order_info){
             header('refresh:1,url=/orderList');
             die("订单 ".$o_id. "不存在！");

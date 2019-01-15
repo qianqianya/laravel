@@ -72,7 +72,7 @@ Route::any('orderPay/{o_id}','Order\OrderController@orderPay')->middleware('chec
 
 //跳转网址
 Route::any('Pay','Order\OrderController@pay');
-Route::get('/payTest/{o_id}','Pay\AlipayController@test');         //测试
-Route::post('payNotify','Pay\AlipayController@notify');        //支付宝支付 通知回调
 
+Route::post('payNotify','Pay\AlipayController@notify');//支付宝支付 通知回调
 
+Route::any('payList/{o_id}','Pay\AlipayController@payList');
