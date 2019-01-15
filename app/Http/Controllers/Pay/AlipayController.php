@@ -176,10 +176,13 @@ class AlipayController extends Controller
     public function async()
     {
 
-        $data = json_encode($_POST);
-        $log_str = '>>>> ' . date('Y-m-d H:i:s') . $data . "<<<<\n\n";
+//        $data = json_encode($_POST);
+//        $log_str = '>>>> ' . date('Y-m-d H:i:s') . $data . "<<<<\n\n";
         //记录日志
-        file_put_contents('logs/alipay.log', $log_str, FILE_APPEND);
+        $json = '{"gmt_create":"2019-01-15 21:58:49","charset":"utf-8",
+"seller_email":"tdxtdh9861@sandbox.com","subject":"Lening-Order: 40","sign":"ZUmjEKazrm8Q0bRX0ZXIypwXCzFl4Up22G8hd0okb9wCkuUxRn0zehKcJfBBJWup5IXa\/Nvy8Lkko8WnYxPCgGvF\/SGi2peZuhTxLa3FPuVDCv8E9svZI74ReN88LMJKkVCleB3vOPG7G5RYK+WvIP\/FW\/hoVN8a2mQOVGb7LWw50GQ1twldcwfF0b\/iWFOgqO\/\/5952adWjtlb7v2QOTLwyb2LqlOrji4UfRJjmnfHS67kgmTCLrAaBeIkepMIl7AQ\/bG64F335SK53CgQ0VY\/qNsTk7h2BLG06bK0r9kMLq1vwbp4igi27FqQEvHWEDYiL8wNLqPUdJ6IbJmEmfQ==","buyer_id":"2088102177054717","invoice_amount":"1400.00","notify_id":"1c3d97134423f16141969cdea048451lhd","fund_bill_list":"[{\"amount\":\"1400.00\",\"fundChannel\":\"ALIPAYACCOUNT\"}]","notify_type":"trade_status_sync","trade_status":"TRADE_SUCCESS","receipt_amount":"1400.00","app_id":"2016091900549956","buyer_pay_amount":"1400.00","sign_type":"RSA2","seller_id":"2088102176376944","gmt_payment":"2019-01-15 21:58:49","notify_time":"2019-01-15 21:58:50","version":"1.0","out_trade_no":"40","total_amount":"1400.00","trade_no":"2019011522001454710500671609","auth_app_id":"2016091900549956","buyer_logon_id":"abr***@sandbox.com","point_amount":"0.00"}';
+        $_POST = json_decode($json , true);
+//        file_put_contents('logs/alipay.log', $log_str, FILE_APPEND);
         //验签
         $res = $this->verify($_POST);
         $log_str = '>>>> ' . date('Y-m-d H:i:s');
