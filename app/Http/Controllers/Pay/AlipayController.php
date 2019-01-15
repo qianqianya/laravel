@@ -14,18 +14,7 @@ class AlipayController extends Controller
     public $gate_way;
     public $notify_url;
     public $rsaPrivateKeyFilePath = './key/priv.key';
-
-
-
-
-
-
-
-
-
-
-
-        
+    
     public function __construct()
     {
         $this->app_id = env('PAT_ID');
