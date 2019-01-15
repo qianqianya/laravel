@@ -175,9 +175,7 @@ class AlipayController extends Controller
      */
     public function async()
     {
-        $data = json_encode($_POST);
-        file_put_contents('logs/alipay.log' , $data , 'FILE_APPEND');
-/*
+
         $data = json_encode($_POST);
         $log_str = '>>>> ' . date('Y-m-d H:i:s') . $data . "<<<<\n\n";
         //记录日志
@@ -211,7 +209,7 @@ class AlipayController extends Controller
         //处理订单逻辑
         $this->dealOrder($_POST);
 
-        echo 'success';*/
+        echo 'success';
     }
 
     //验签
