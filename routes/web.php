@@ -76,3 +76,4 @@ Route::any('Pay','Order\OrderController@pay');
 Route::post('payNotify','Pay\AlipayController@notify');//支付宝支付 通知回调
 
 Route::any('payList/{o_id}','Pay\AlipayController@payList');
+Route::any('sync','Pay\AlipayController@sync');

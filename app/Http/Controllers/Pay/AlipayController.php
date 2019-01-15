@@ -6,68 +6,80 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\OrderModel;
 
+use GuzzleHttp\Client;
 class AlipayController extends Controller
 {
 
-    //
     public $app_id;
     public $gate_way;
     public $notify_url;
+    public $return_url;
     public $rsaPrivateKeyFilePath = './key/priv.key';
-    
+    public $aliPubKey = './key/ali_pub.key';
+
     public function __construct()
     {
         $this->app_id = env('PAT_ID');
         $this->gate_way = env('PAY_WAY');
         $this->notify_url = env('PAY_URL');
+        $this->return_url = env('RETURN_PAY_URL');
 
 
     }
 
     public function payList($o_id)
     {
-        //查询订单
-        $order_info = OrderModel::where(['o_id' => $o_id])->first();
-        //var_dump($order_info);exit;
-        if (!$order_info) {
-            header('refresh:1,url=/orderList');
-            die("订单 " . $o_id . "不存在！");
+        //验证订单状态 是否已支付 是否是有效订单
+        $order_info = OrderModel::where(['o_id'=>$o_id])->first()->toArray();
+
+//判断订单是否已被支付
+        if($order_info['is_pay']==1){
+            header('refresh:2,url=/orderList');
+            die("订单已支付，请勿重复支付");
         }
-        //检查订单状态 是否已支付 已过期 已删除
-        if ($order_info->pay_time > 0) {
-            header('refresh:1,url=/orderList');
-            die("此订单已被支付，无法再次支付");
+//判断订单是否已被删除
+        if($order_info['is_delete']==1){
+            header('refresh:2,url=/orderList');
+            die("订单已被删除，无法支付");
         }
-        //业务参数
+
+
+
+//业务参数
         $bizcont = [
-            'subject' => 'Lening-Order: ' . $o_id,
-            'out_trade_no' => $o_id,
-            'total_amount' => $order_info['order_amount'] / 100,
-            'product_code' => 'QUICK_WAP_WAY',
+            'subject'           => 'Lening-Order: ' .$o_id,
+            'out_trade_no'      => $o_id,
+            'total_amount'      => $order_info['o_amount'] / 100,
+            'product_code'      => 'QUICK_WAP_WAY',
 
         ];
 
+//公共参数
         $data = [
-            'app_id' => $this->app_id,
-            'method' => 'alipay.trade.wap.pay',
-            'format' => 'JSON',
-            'charset' => 'utf-8',
-            'sign_type' => 'RSA2',
-            'timestamp' => date('Y-m-d H:i:s'),
-            'version' => '1.0',
-            'notify_url' => $this->notify_url,
-            'biz_content' => json_encode($bizcont),
+            'app_id'   => $this->app_id,
+            'method'   => 'alipay.trade.wap.pay',
+            'format'   => 'JSON',
+            'charset'   => 'utf-8',
+            'sign_type'   => 'RSA2',
+            'timestamp'   => date('Y-m-d H:i:s'),
+            'version'   => '1.0',
+            'notify_url'   => $this->notify_url,        //异步通知地址
+            'return_url'   => $this->return_url,        // 同步通知地址
+            'biz_content'   => json_encode($bizcont),
         ];
 
+//签名
         $sign = $this->rsaSign($data);
         $data['sign'] = $sign;
         $param_str = '?';
-        foreach ($data as $k => $v) {
-            $param_str .= $k . '=' . urlencode($v) . '&';
+        foreach($data as $k=>$v){
+            $param_str .= $k.'='.urlencode($v) . '&';
         }
-        $url = rtrim($param_str, '&');
+
+        $url = rtrim($param_str,'&');
         $url = $this->gate_way . $url;
-        header("Location:" . $url);
+        header("Location:".$url);
+
     }
 
     public function rsaSign($params)
@@ -152,22 +164,17 @@ class AlipayController extends Controller
     /**
      * 同步
      */
-    /* public function sync()
+     public function sync()
      {
-         echo '<pre>';print_r($_GET);echo '</pre>';
-         //验签 支付宝的公钥
-         if(!$this->verify($_GET)){
-             echo 'error';
-         }
+         header('Refresh:2;url=/orderList');
+         echo "订单： ".$_GET['out_trade_no'] . ' 支付成功，正在跳转';
 
-         //处理订单逻辑
-         $this->dealOrder($_GET);
-     }*/
+     }
 
     /**
      * 支付宝异步通知
      */
-    public function aliNotify()
+    public function asyn()
     {
 
         $data = json_encode($_POST);
