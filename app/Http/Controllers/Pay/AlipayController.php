@@ -174,7 +174,7 @@ class AlipayController extends Controller
     /**
      * 支付宝异步通知
      */
-    public function asyn()
+    public function async()
     {
 
         $data = json_encode($_POST);
