@@ -174,7 +174,7 @@ class AlipayController extends Controller
     /**
      * 支付宝异步通知
      */
-    public function asyn()
+    public function async()
     {
 
         $data = json_encode($_POST);
@@ -208,7 +208,6 @@ class AlipayController extends Controller
 
             OrderModel::where(['oid' => $oid])->update($info);
         }
-
         //处理订单逻辑
         $this->dealOrder($_POST);
 
