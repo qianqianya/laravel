@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\OrderModel;
 
-use GuzzleHttp\Client;
 class AlipayController extends Controller
 {
 
@@ -176,14 +175,15 @@ class AlipayController extends Controller
      */
     public function async()
     {
-
+        $data = json_encode($_POST);
+        file_put_contents('./alipay.log' , $data , 'FILE_APPEND');
+/*
         $data = json_encode($_POST);
         $log_str = '>>>> ' . date('Y-m-d H:i:s') . $data . "<<<<\n\n";
         //记录日志
         file_put_contents('logs/alipay.log', $log_str, FILE_APPEND);
         //验签
         $res = $this->verify($_POST);
-
         $log_str = '>>>> ' . date('Y-m-d H:i:s');
         if ($res === false) {
             //记录日志 验签失败
@@ -197,7 +197,7 @@ class AlipayController extends Controller
         //验证订单交易状态
         if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
             //更新订单状态
-            $oid = $_POST['out_trade_no'];     //商户订单号
+            $o_id = $_POST['out_trade_no'];     //商户订单号
             $info = [
                 'is_pay' => 1,       //支付状态  0未支付 1已支付
                 'pay_amount' => $_POST['total_amount'] * 100,    //支付金额
@@ -206,12 +206,12 @@ class AlipayController extends Controller
                 'plat' => 1,      //平台编号 1支付宝 2微信
             ];
 
-            OrderModel::where(['oid' => $oid])->update($info);
+            OrderModel::where(['o_id' => $o_id])->update($info);
         }
         //处理订单逻辑
         $this->dealOrder($_POST);
 
-        echo 'success';
+        echo 'success';*/
     }
 
     //验签
