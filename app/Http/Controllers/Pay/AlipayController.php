@@ -145,7 +145,7 @@ class AlipayController extends Controller
     /**
      * 同步
      */
-    public function sync()
+   /* public function sync()
     {
         echo '<pre>';print_r($_GET);echo '</pre>';
         //验签 支付宝的公钥
@@ -155,7 +155,7 @@ class AlipayController extends Controller
 
         //处理订单逻辑
         $this->dealOrder($_GET);
-    }
+    }*/
 
     /**
      * 支付宝异步通知
