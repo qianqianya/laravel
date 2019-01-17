@@ -176,12 +176,12 @@ class AlipayController extends Controller
     public function async()
     {
 
-       $data = json_encode($_POST);
-     $log_str = '>>>> ' . date('Y-m-d H:i:s') . $data . "<<<<\n\n";
+      // $data = json_encode($_POST);
+    // $log_str = '>>>> ' . date('Y-m-d H:i:s') . $data . "<<<<\n\n";
         //记录日志
-        //$json = '{"gmt_create":"2019-01-15 22:31:33","charset":"utf-8","seller_email":"tdxtdh9861@sandbox.com","subject":"Lening-Order: 41","sign":"WQUKJhyBzkS1vMVdRzic8LR1XYwNq2zhfcvDXbEGNREAh\/Ny7oZ6YisJQklYs5ea1sJ0LeiRxNb\/j1MCrN767GmGC551uqYtrcGvti9P3AMaPDO6oV+1+ycjddwojd97JlkMKRxjj4PX+fD6m+OvfbgzAixY8lTwe8+9nomZDXQLXFJulUrzqQorAV3g24d1ohSYT2ULBQ7tQoYKQd\/3KorqUdxV6j\/CnXJ9dI28sFNtRZVF5MOP1eZZ2F7TY6hZztDXfF4wfJluWQeiW415eQTVRhTjT2e5VRqQ8MbMXaY5WpZAUu41jtxpMiWmuRq08M6\/h2lD4dQ0wRt96Q8KlQ==","buyer_id":"2088102177054717","invoice_amount":"700.00","notify_id":"930998460a8d641252705bc6a49c5f0lhd","fund_bill_list":"[{\"amount\":\"700.00\",\"fundChannel\":\"ALIPAYACCOUNT\"}]","notify_type":"trade_status_sync","trade_status":"TRADE_SUCCESS","receipt_amount":"700.00","app_id":"2016091900549956","buyer_pay_amount":"700.00","sign_type":"RSA2","seller_id":"2088102176376944","gmt_payment":"2019-01-15 22:31:33","notify_time":"2019-01-15 22:31:34","version":"1.0","out_trade_no":"41","total_amount":"700.00","trade_no":"2019011522001454710500671442","auth_app_id":"2016091900549956","buyer_logon_id":"abr***@sandbox.com","point_amount":"0.00"}';
-       // $_POST = json_decode($json , true);
-      file_put_contents('logs/alipay.log', $log_str, FILE_APPEND);
+        $json = '{"gmt_create":"2019-01-17 08:46:48","charset":"utf-8","seller_email":"tdxtdh9861@sandbox.com","subject":"Lening-Order: 46","sign":"kynTq+CZPX6YnYcNWpzL1wvID\/LDkFJ0XvDzVmxLurO\/bt0grJzb5p+\/OhySTHDsgpZZ272b\/6oTvSJzr3Z9lOpfZnuL2S4Jw20Zaq0W4mzjjk\/U\/LPvOHirG\/\/eJWKtBO4LLFxYAsuYptLkQtfWeQOKxGKN87TWoIJ8ybGBZA8gwueZMjRjNcPEhycKHnxlv2ZRN628dvP1AY\/MGPtekSDVlE5yhwyqx57F+6YkvZSncBHS1abtQRNOTjhCnzGcGB72a7YJdqZEPlqwAt2trOVMdVda\/mlEMoTj9+tikRlPhbpFdCgCQ9P+dme6q0ki29taRro7FCdBRrcRg62lIg==","buyer_id":"2088102177054717","invoice_amount":"30.00","notify_id":"a094c173ce9e58a20b09ccc51c93970lhd","fund_bill_list":"[{\"amount\":\"30.00\",\"fundChannel\":\"ALIPAYACCOUNT\"}]","notify_type":"trade_status_sync","trade_status":"TRADE_SUCCESS","receipt_amount":"30.00","app_id":"2016091900549956","buyer_pay_amount":"30.00","sign_type":"RSA2","seller_id":"2088102176376944","gmt_payment":"2019-01-17 08:46:49","notify_time":"2019-01-17 08:46:50","version":"1.0","out_trade_no":"46","total_amount":"30.00","trade_no":"2019011722001454710500672019","auth_app_id":"2016091900549956","buyer_logon_id":"abr***@sandbox.com","point_amount":"0.00"}';
+       $_POST = json_decode($json , true);
+     // file_put_contents('logs/alipay.log', $log_str, FILE_APPEND);
         //验签
         $res = $this->verify($_POST);
         $log_str = '>>>> ' . date('Y-m-d H:i:s');
