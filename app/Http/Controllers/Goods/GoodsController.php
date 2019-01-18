@@ -13,15 +13,16 @@ class GoodsController extends Controller
      * liruixiang
      */
     public function goodsList(){
-        $res = GoodsModel::all();
+        $list  = GoodsModel::paginate(2);
         //print_r($res);exit;
         //var_dump($res);exit;
         $data=[
             'title'=>'商品主页',
-            'data'=>$res
+            'list'=>$list
         ];
         return view('goods.goods',$data);
     }
+
 
     /**
      * 商品主页

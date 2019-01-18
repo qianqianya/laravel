@@ -12,15 +12,17 @@
             <td>时间</td>
             <td>操作</td>
         </tr>
-        @foreach($data as $v)
-        <tr class="info">
-            <td>{{$v->goods_id}}</td>
-            <td>{{$v->goods_name}}</td>
-            <td>{{$v->goods_store}}</td>
-            <td>{{$v->goods_price / 100}}</td>
-            <td>{{date("Y-m-d H:i:s",$v->goods_ctime)}}</td>
-            <td><li class="btn"><a href="/goodsDetails/{{$v['goods_id']}}">加入购物车</a></li></td>
-        </tr>
+        @foreach($list as $v)
+            <tr class="inf5">
+                <td>{{$v->goods_id}}</td>
+                <td>{{$v->goods_name}}</td>
+                <td>{{$v->goods_store}}</td>
+                <td>{{$v->goods_price / 100}}</td>
+                <td>{{date("Y-m-d H:i:s",$v->goods_ctime)}}</td>
+                <td><li class="btn"><a href="/goodsDetails/{{$v['goods_id']}}">加入购物车</a></li></td>
+            </tr>
         @endforeach
     </table>
+
+    <h5 style="float:right;width: 200px">{{$list->links()}}</h5>
 @endsection

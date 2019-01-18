@@ -14,6 +14,7 @@ class OrderController extends Controller
     public $u_id;             // 登录UID
     public function __construct()
     {
+        $this->middleware('check.login.token');
         $this->middleware(function ($request, $next) {
             $this->u_id = session()->get('u_id');
             return $next($request);
