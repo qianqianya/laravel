@@ -4,17 +4,6 @@
 @section('content')
     <table class="table table-hover">
         <h2>商品页面</h2>
-
-        <div class="nav navbar-right panel_toolbox col-xs-3">
-            <form role="form" method="GET" action="/keyword">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="请输入标题" name="keyword" value="{{$search}}}">
-                <span class="input-group-btn">
-                <button class="btn btn-default" type="submit">搜索</button>
-                </span>
-                </div>
-            </form>
-        </div>
         <tr class="success">
             <td>ID</td>
             <td>名称</td>
