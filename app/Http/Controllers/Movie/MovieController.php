@@ -13,7 +13,7 @@ class MovieController extends Controller
         $seat_status=[];
         for($i=0;$i<=30;$i++){
             $status=Redis::getbit($key,$i);
-            var_dump($status);exit;
+            //var_dump($status);exit;
             $seat_status[$i]=$status;
         }
         $data=[
