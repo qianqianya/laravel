@@ -85,3 +85,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/upload','Goods\GoodsController@uploadIndex');
 Route::post('/goods/upload/pdf','Goods\GoodsController@uploadPDF');
+
+Route::any('/movie','Movie\MovieController@movie')->middleware('check.login.token');
