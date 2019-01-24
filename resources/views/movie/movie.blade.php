@@ -1,6 +1,5 @@
 {{-- 订单页面--}}
 @extends('layout.goods')
-@section('title') {{$title}}    @endsection
 @section('content')
    @foreach($seat as $k=>$v)
        @if($v==1)
