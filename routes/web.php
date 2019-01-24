@@ -36,6 +36,7 @@ Route::any('goodsDel/{goods_id}','Goods\GoodsController@goodsDel')->middleware('
 
 //商品详情
 Route::any('goodsDetails/{goods_id}','Goods\GoodsController@goodsDetails')->middleware('check.login.token');
+Route::any('/keyword','Goods\GoodsController@keyword')->middleware('check.login.token');
 
 
 
@@ -81,3 +82,6 @@ Route::any('async','Pay\AlipayController@async');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/upload','Goods\GoodsController@uploadIndex');
+Route::post('/goods/upload/pdf','Goods\GoodsController@uploadPDF');

@@ -10,14 +10,12 @@ class GoodsController extends Controller
 {
     /**
      * 商品主页
-     * liruixiang
      */
     public function goodsList(){
-        $list  = GoodsModel::paginate(2);
+        $list  = GoodsModel::paginate(5);
         //print_r($res);exit;
         //var_dump($res);exit;
         $data=[
-            'title'=>'商品主页',
             'list'=>$list
         ];
         return view('goods.goods',$data);
@@ -26,7 +24,6 @@ class GoodsController extends Controller
 
     /**
      * 商品主页
-     * liruixiang
      */
     public function goodsDel($goods_id){
         $where=[
@@ -59,4 +56,28 @@ class GoodsController extends Controller
         ];
         return view('goods.goodsdeta',$data);
     }
+    public function uploadIndex()
+    {
+        return view('goods.upload');
+    }
+
+    public function uploadPDF(Request $request)
+    {
+        $pdf = $request->file('pdf');
+        $ext  = $pdf->extension();
+        if($ext != 'pdf'){
+            die("请上传PDF格式");
+        }
+        $res = $pdf->storeAs(date('Ymd'),str_random(5) . '.pdf');
+        if($res){
+            echo '上传成功';
+        }
+
+    }
+    public function keyword(Request $request){
+        $search = $request->input('s');
+        $newslist =GoodsModel::where([['goods_name', 'like', "%$search%"]])->paginate(2);
+        return view('goods.keyword', ['list'=> $newslist,'search'=>$search]);
+    }
+
 }

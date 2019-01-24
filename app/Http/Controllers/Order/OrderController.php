@@ -46,7 +46,6 @@ class OrderController extends Controller
 
     /**
      * 提交订单添加
-     * liruixaing
      */
     public function orderAdd()
     {
@@ -91,7 +90,6 @@ class OrderController extends Controller
 
     /**
      * 删除订单
-     * liruixiang
      */
     public function orderDel($o_id){
         $where=[
@@ -110,7 +108,6 @@ class OrderController extends Controller
 
     /**
      * 订单支付
-     *liruixiang
      */
     public function orderPay($o_id){
         //查询订单
