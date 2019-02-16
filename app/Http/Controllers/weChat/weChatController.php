@@ -8,6 +8,6 @@ use App\Http\Controllers\Controller;
 class weChatController extends Controller
 {
     public function weChat(){
-        echo $_GET['echo str'];
+        echo $_GET['echostr'];
     }
 }
