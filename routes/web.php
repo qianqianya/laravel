@@ -88,4 +88,3 @@ Route::post('/goods/upload/pdf','Goods\GoodsController@uploadPDF');
 
 Route::any('/movie','Movie\MovieController@movie')->middleware('check.login.token');
 
-Route::any('/phpinfo','User\UserController@phpinfo');
