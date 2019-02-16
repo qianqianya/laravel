@@ -164,6 +164,9 @@ class UserController extends Controller
         header('refresh:2,url=/loginAdd');
     echo '退出成功，正在跳转登录页面';
     }
+    public function phpinfo(){
+        return view('phpinfo');
+    }
 
 
 
