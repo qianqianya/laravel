@@ -93,6 +93,7 @@ Route::get('/weChat','weChat\weChatController@weChat');
 Route::post('/weChat','weChat\weChatController@weChat');
 
 Route::post('/weChatToken','weChat\weChatController@weChatToken');
+Route::get('/weChatToken','weChat\weChatController@weChatToken');
 
 
 
