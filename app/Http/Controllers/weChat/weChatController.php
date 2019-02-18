@@ -105,12 +105,13 @@ class weChatController extends Controller
      */
     public function getUserInfo($openid)
     {
-        $openid = 'oo8Oz0skvOcYMVI-qHQb5gX43r0g';
+        //$openid = 'oo8Oz0skvOcYMVI-qHQb5gX43r0g';
         $access_token = $this->getWXAccessToken();
         $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
 
         $data = json_decode(file_get_contents($url),true);
         echo '<pre>';print_r($data);echo '</pre>';
+        return $data;
     }
 
 
