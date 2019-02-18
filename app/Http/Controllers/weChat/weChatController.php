@@ -15,6 +15,20 @@ class weChatController extends Controller
     }
 
     /**
+     * 接收事件推送
+     */
+    public function validToken()
+    {
+        //$get = json_encode($_GET);
+        //$str = '>>>>>' . date('Y-m-d H:i:s') .' '. $get . "<<<<<\n";
+        //file_put_contents('logs/weixin.log',$str,FILE_APPEND);
+        //echo $_GET['echostr'];
+        $data = file_get_contents("php://input");
+        $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
+        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
+    }
+
+    /**
      * 接收微信服务器事件推送
      */
     public function weChatToken()
