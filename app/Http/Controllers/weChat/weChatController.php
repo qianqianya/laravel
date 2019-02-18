@@ -22,20 +22,6 @@ class weChatController extends Controller
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
     }
-    /**
-     * 接收事件推送
-     */
-    public function validToken()
-    {
-        //$get = json_encode($_GET);
-        //$str = '>>>>>' . date('Y-m-d H:i:s') .' '. $get . "<<<<<\n";
-        //file_put_contents('logs/weixin.log',$str,FILE_APPEND);
-        //echo $_GET['echostr'];
-        $data = file_get_contents("php://input");
-        $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
-        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
-    }
-
 
     /**
      * 获取微信AccessToken
@@ -62,7 +48,7 @@ class weChatController extends Controller
      * 获取用户信息
      * @param $openid
      */
-    public function getUserInfo($openid)
+   /* public function getUserInfo($openid)
     {
         $openid = 'oo8Oz0skvOcYMVI-qHQb5gX43r0g';
         $access_token = $this->getWXAccessToken();
@@ -70,7 +56,7 @@ class weChatController extends Controller
 
         $data = json_decode(file_get_contents($url),true);
         echo '<pre>';print_r($data);echo '</pre>';
-    }
+    }*/
 
 
 }
