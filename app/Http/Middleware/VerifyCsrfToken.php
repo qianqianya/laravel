@@ -15,7 +15,7 @@ class VerifyCsrfToken extends Middleware
         //
         '/test/*',
         'async',
-        'weChat',
-        'weChatToken'
+        '/weChat',
+        '/weChatToken'
     ];
 }
