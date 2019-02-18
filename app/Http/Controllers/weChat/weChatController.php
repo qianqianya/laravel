@@ -4,6 +4,7 @@ namespace App\Http\Controllers\weChat;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redis;
 
 class weChatController extends Controller
 {
