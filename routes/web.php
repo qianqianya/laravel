@@ -90,7 +90,7 @@ Route::any('/movie','Movie\MovieController@movie')->middleware('check.login.toke
 
 Route::get('/weChat','weChat\weChatController@weChat');
 
-Route::post('/weChat','weChat\weChatController@weChat');
+Route::post('/weChat','weChat\weChatController@weChatToken');
 
 Route::post('/weChatToken','weChat\weChatController@validToken');
 Route::get('/weChatToken','weChat\weChatController@validToken');
