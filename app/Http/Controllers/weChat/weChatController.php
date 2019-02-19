@@ -43,6 +43,8 @@ class weChatController extends Controller
         $event = $xml->Event;                       //事件类型
         //var_dump($xml);echo '<hr>';
 
+        $openid = $xml->FromUserName; //用户openid
+
         if ($event == 'subscribe') {
             $openid = $xml->FromUserName;               //用户openid
             $sub_time = $xml->CreateTime;               //扫码关注时间
@@ -76,9 +78,25 @@ class weChatController extends Controller
                 $id = WeixinUser::insertGetId($user_data);      //保存用户信息
                 var_dump($id);
             }
+        }else if($event=='click'){
+            if($xml->EventKey=='didi'){
+                $this->kefu01($openid,$xml->ToUserName);
+            }
         }
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
+    }
+
+    /**
+     * @param $openid
+     * @param $from
+     * 回复消息
+     */
+    public function didi($openid,$from)
+    {
+        // 文本消息
+        $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$from.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. 'Hello World, 现在时间'. date('Y-m-d H:i:s') .']]></Content></xml>';
+        echo $xml_response;
     }
 
     /**
@@ -144,7 +162,12 @@ class weChatController extends Controller
                             "type"=>"view",
                             "name"=>"首页",
                             "url"=>"https://music.163.com/"
-                        ]
+                        ],
+                        [
+                        "type"=>"click",
+                        "name"=>"当前时间",
+                        "keys"=>"didi"
+                    ]
                     ]
                 ],
                [
