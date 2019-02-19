@@ -78,7 +78,7 @@ class weChatController extends Controller
                 $id = WeixinUser::insertGetId($user_data);      //保存用户信息
                 var_dump($id);
             }
-        }else if($event=='click'){
+        }else if($event=='CLICK'){
             if($xml->EventKey=='didi'){
                 $this->didi($openid,$xml->ToUserName);
             }
