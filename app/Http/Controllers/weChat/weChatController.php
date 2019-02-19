@@ -152,11 +152,11 @@ class weChatController extends Controller
                     "name"=>"百度",
                     "url"=>"https://www.baidu.com/"
                 ],
-                /* [
+                [
                     "type"=>"view",
                     "name"=>"欢乐欢乐",
-                    "key"=>"https://www.xiaopi.com/game/27976.html"
-                ],*/
+                    "url"=>"https://www.xiaopi.com/game/27976.html"
+                ],
 
             ]
 
