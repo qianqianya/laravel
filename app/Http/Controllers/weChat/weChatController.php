@@ -138,13 +138,13 @@ class weChatController extends Controller
                         [
                             "type"=>"view",
                             "name"=>"搜索",
-                            "url"=>"https://www.baidu.com/"
+                            "url"=>"https://www.soso.com/"
                         ],
-                        [
+                        /*[
                             "type"=>"view",
                             "name"=>"首页",
-                            "url"=>"https://www.baidu.com/"
-                        ]
+                            "url"=>"https://music.163.com/"
+                        ]*/
                     ]
                 ],
                 [
