@@ -155,7 +155,7 @@ class weChatController extends Controller
                 [
                     "type"=>"view",
                     "name"=>"欢乐欢乐",
-                    "url"=>"http://www.pc6.com/xcx/571253.html"
+                    "url"=>"https://www.91ud.com/app/22566.html"
                 ],
 
             ]
