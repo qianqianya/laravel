@@ -138,7 +138,7 @@ class weChatController extends Controller
                 ]
             ]
         ];
-        var_dump($data);exit;
+        //var_dump($data);exit;
         $r = $client->request('POST', $url, [
             'body' => json_encode($data)
         ]);
