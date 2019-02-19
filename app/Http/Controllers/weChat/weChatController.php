@@ -128,7 +128,7 @@ class weChatController extends Controller
 
         //2 请求微信接口
         $client = new GuzzleHttp\Client(['base_url' => $url]);
-        var_dump($client);exit;
+        //var_dump($client);exit;
         $data = [
             "button"    => [
                 [
@@ -138,6 +138,7 @@ class weChatController extends Controller
                 ]
             ]
         ];
+        var_dump($data);exit;
         $r = $client->request('POST', $url, [
             'body' => json_encode($data)
         ]);
