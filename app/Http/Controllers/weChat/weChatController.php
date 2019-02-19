@@ -135,9 +135,11 @@ class weChatController extends Controller
                     //"type"  => "view",      // view类型 跳转指定 URL
                     "name"  => "网易云",
                     "sub_button"=>[
+                        [
                         "type"=>"view",
                         "name"=>"搜索",
                         "url"=>"http://www.soso.com/"
+                        ]
                     ]
                 ]
 
