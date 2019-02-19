@@ -5,6 +5,7 @@ use App\Model\WeixinUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
+use GuzzleHttp;
 
 class weChatController extends Controller
 {
@@ -116,5 +117,42 @@ class weChatController extends Controller
         return $data;
     }
 
+    /**
+     * 创建服务号菜单
+     */
+    public function createMenu(){
+        //echo __METHOD__;
+        // 1 获取access_token 拼接请求接口
+        $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->getWXAccessToken();
+
+        //2 请求微信接口
+        $client = new GuzzleHttp\Client(['base_url' => $url]);
+
+        $data = [
+            "button"    => [
+                [
+                    "type"  => "view",      // view类型 跳转指定 URL
+                    "name"  => "网易云",
+                    "url"   => "https://music.163.com/"
+                ]
+            ]
+        ];
+        $r = $client->request('POST', $url, [
+            'body' => json_encode($data)
+        ]);
+
+        // 3 解析微信接口返回信息
+
+        $response_arr = json_decode($r->getBody(),true);
+        //echo '<pre>';print_r($response_arr);echo '</pre>';
+
+        if($response_arr['errcode'] == 0){
+            echo "菜单创建成功";
+        }else{
+            echo "菜单创建失败，请重试";echo '</br>';
+            echo $response_arr['errmsg'];
+
+        }
+    }
 
 }
