@@ -139,10 +139,10 @@ class weChatController extends Controller
             ]
         ];
         //var_dump($data);exit;
-        $r = $client->request('POST', $url, [
-            'body' => json_encode($data)
+        $r = $client->Request('POST', $url, [
+            'body' => json_encode($data,JSON_UNESCAPED_UNICODE)
         ]);
-        var_dump($r);exit;
+        //var_dump($r);exit;
 
         // 3 解析微信接口返回信息
 
