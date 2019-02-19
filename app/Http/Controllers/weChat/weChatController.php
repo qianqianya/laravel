@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
 use GuzzleHttp;
+use Illuminate\Support\Facades\Storage;
 
 class weChatController extends Controller
 {
@@ -51,8 +52,16 @@ class weChatController extends Controller
                 $msg = $xml->Content;
                 $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. 'aaaa'.']]></Content></xml>';
                 echo $xml_response;
-                exit();
+            }elseif($xml->MsgType=='image'){       //用户发送图片信息
+                //视业务需求是否需要下载保存图片
+                if(1){  //下载图片素材
+                    $this->dlWxImg($xml->MediaId);
+                    $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. str_random(10) . ' >>> ' . date('Y-m-d H:i:s') .']]></Content></xml>';
+                    echo $xml_response;
+                }
             }
+
+            exit();
         }
 
         if ($event == 'subscribe') {
@@ -151,47 +160,48 @@ class weChatController extends Controller
     /**
      * 创建服务号菜单
      */
-    public function createMenu(){
+    public function createMenu()
+    {
         //echo __METHOD__;
         // 1 获取access_token 拼接请求接口
-        $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->getWXAccessToken();
+        $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->getWXAccessToken();
 
 
         //2 请求微信接口
         $client = new GuzzleHttp\Client(['base_url' => $url]);
         //var_dump($client);exit;
         $data = [
-            "button"    => [
+            "button" => [
                 [
                     //"type"  => "view",      // view类型 跳转指定 URL
-                    "name"  => "网易云音乐",
-                    "sub_button"=>[
+                    "name" => "网易云音乐",
+                    "sub_button" => [
                         [
-                            "type"=>"view",
-                            "name"=>"搜索",
-                            "url"=>"https://www.soso.com/"
+                            "type" => "view",
+                            "name" => "搜索",
+                            "url" => "https://www.soso.com/"
                         ],
                         [
-                            "type"=>"view",
-                            "name"=>"首页",
-                            "url"=>"https://music.163.com/"
+                            "type" => "view",
+                            "name" => "首页",
+                            "url" => "https://music.163.com/"
                         ],
                         [
-                        "type"=>"click",
-                        "name"=>"当前时间",
-                        "key"=>"didi"
+                            "type" => "click",
+                            "name" => "当前时间",
+                            "key" => "didi"
+                        ]
                     ]
-                    ]
-                ],
-               [
-                    "type"=>"view",
-                    "name"=>"百度",
-                    "url"=>"https://www.baidu.com/"
                 ],
                 [
-                    "type"=>"view",
-                    "name"=>"欢乐欢乐",
-                    "url"=>"https://www.91ud.com/app/22566.html"
+                    "type" => "view",
+                    "name" => "百度",
+                    "url" => "https://www.baidu.com/"
+                ],
+                [
+                    "type" => "view",
+                    "name" => "欢乐欢乐",
+                    "url" => "https://www.91ud.com/app/22566.html"
                 ],
 
             ]
@@ -199,22 +209,51 @@ class weChatController extends Controller
         ];
         //var_dump($data);exit;
         $r = $client->Request('POST', $url, [
-            'body' => json_encode($data,JSON_UNESCAPED_UNICODE)
+            'body' => json_encode($data, JSON_UNESCAPED_UNICODE)
         ]);
         //var_dump($r);exit;
 
         // 3 解析微信接口返回信息
 
-        $response_arr = json_decode($r->getBody(),true);
-        echo '<pre>';print_r($response_arr);echo '</pre>';
+        $response_arr = json_decode($r->getBody(), true);
+        echo '<pre>';
+        print_r($response_arr);
+        echo '</pre>';
 
-        if($response_arr['errcode'] == 0){
+        if ($response_arr['errcode'] == 0) {
             echo "菜单创建成功";
-        }else{
-            echo "菜单创建失败，请重试";echo '</br>';
+        } else {
+            echo "菜单创建失败，请重试";
+            echo '</br>';
             echo $response_arr['errmsg'];
 
         }
+    }
+
+        public function dlWxImg($media_id)
+        {
+            $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getWXAccessToken().'&media_id='.$media_id;
+            //echo $url;echo '</br>';
+
+            //保存图片
+            $client = new GuzzleHttp\Client();
+            $response = $client->get($url);
+            //$h = $response->getHeaders();
+
+            //获取文件名
+            $file_info = $response->getHeader('Content-disposition');
+            $file_name = substr(rtrim($file_info[0],'"'),-20);
+
+            $wx_image_path = 'wx/images/'.$file_name;
+            //保存图片
+            $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
+            if($r){     //保存成功
+                echo '保存成功';
+            }else{      //保存失败
+                echo "保存失败";
+                echo '</br>';
+                echo $r['errmsg'];
+            }
     }
 
 }
