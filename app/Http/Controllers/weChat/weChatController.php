@@ -80,7 +80,7 @@ class weChatController extends Controller
             }
         }else if($event=='click'){
             if($xml->EventKey=='didi'){
-                $this->kefu01($openid,$xml->ToUserName);
+                $this->didi($openid,$xml->ToUserName);
             }
         }
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
