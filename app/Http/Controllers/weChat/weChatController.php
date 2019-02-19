@@ -144,7 +144,7 @@ class weChatController extends Controller
         // 3 解析微信接口返回信息
 
         $response_arr = json_decode($r->getBody(),true);
-        //echo '<pre>';print_r($response_arr);echo '</pre>';
+        echo '<pre>';print_r($response_arr);echo '</pre>';
 
         if($response_arr['errcode'] == 0){
             echo "菜单创建成功";
