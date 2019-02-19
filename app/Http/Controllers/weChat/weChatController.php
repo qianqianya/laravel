@@ -149,8 +149,8 @@ class weChatController extends Controller
                 ],
                [
                     "type"=>"view",
-                    "name"=>"百度一下",
-                    "key"=>"https://www.baidu.com/"
+                    "name"=>"百度",
+                    "url"=>"https://www.baidu.com/"
                 ],
                 /* [
                     "type"=>"view",
