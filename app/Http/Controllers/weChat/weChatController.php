@@ -166,7 +166,7 @@ class weChatController extends Controller
                         [
                         "type"=>"click",
                         "name"=>"当前时间",
-                        "keys"=>"didi"
+                        "key"=>"didi"
                     ]
                     ]
                 ],
