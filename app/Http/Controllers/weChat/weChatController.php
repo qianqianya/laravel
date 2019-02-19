@@ -135,8 +135,14 @@ class weChatController extends Controller
                     "type"  => "view",      // view类型 跳转指定 URL
                     "name"  => "网易云",
                     "url"   => "https://music.163.com/"
+                ],
+                "sub_button"=>[
+                    "type"=>"view",
+                    "name"=>"搜索",
+                    "url"=>"http://www.soso.com/"
                 ]
             ]
+
         ];
         //var_dump($data);exit;
         $r = $client->Request('POST', $url, [
@@ -147,7 +153,7 @@ class weChatController extends Controller
         // 3 解析微信接口返回信息
 
         $response_arr = json_decode($r->getBody(),true);
-        echo '<pre>';print_r($response_arr);echo '</pre>';
+        //echo '<pre>';print_r($response_arr);echo '</pre>';
 
         if($response_arr['errcode'] == 0){
             echo "菜单创建成功";
