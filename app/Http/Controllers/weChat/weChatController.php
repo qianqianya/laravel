@@ -133,20 +133,35 @@ class weChatController extends Controller
             "button"    => [
                 [
                     //"type"  => "view",      // view类型 跳转指定 URL
-                    "name"  => "网易云",
+                    "name"  => "网易云音乐",
                     "sub_button"=>[
                         [
-                        "type"=>"view",
-                        "name"=>"搜索",
-                        "url"=>"http://www.soso.com/"
+                            "type"=>"view",
+                            "name"=>"搜索",
+                            "url"=>"http://www.soso.com/"
+                        ],
+                        [
+                            "type"=>"view",
+                            "name"=>"首页",
+                            "url"=>"https://music.163.com/"
                         ]
                     ]
-                ]
+                ],
+                [
+                    "type"=>"view",
+                    "name"=>"百度一下",
+                    "key"=>"https://www.baidu.com/"
+                ],
+                [
+                    "type"=>"view",
+                    "name"=>"欢乐欢乐",
+                    "key"=>"https://www.xiaopi.com/game/27976.html"
+                ],
 
             ]
 
         ];
-        //var_dump($data);exit;
+        var_dump($data);exit;
         $r = $client->Request('POST', $url, [
             'body' => json_encode($data,JSON_UNESCAPED_UNICODE)
         ]);
