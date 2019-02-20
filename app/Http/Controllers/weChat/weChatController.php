@@ -273,7 +273,7 @@ class weChatController extends Controller
                         "is_to_all"=>true
                     ],
                     "text"=>[
-                        "content"=>"ssssss."
+                        "content"=>"aaaaa."
                     ],
                     "msgtype"=>"text"
                 ];
@@ -283,9 +283,9 @@ class weChatController extends Controller
         ]);
         //var_dump($r);exit;
         $response_arr = json_decode($r->getBody(), true);
-        echo '<pre>';
-        print_r($response_arr);
-        echo '</pre>';die;
+        //echo '<pre>';
+        //print_r($response_arr);
+       // echo '</pre>';
 
         if ($response_arr['errcode'] == 0) {
             echo "发送成功";
