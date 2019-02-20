@@ -265,7 +265,7 @@ class weChatController extends Controller
     public function all()
     {
         $access_token = $this->getWXAccessToken();
-        $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=' . $access_token;
+        $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=' . $access_token;
         //var_dump($url);exit;
         $client = new GuzzleHttp\Client(['base_url' => $url]);
         $param = [
