@@ -91,7 +91,7 @@ class WeimediaController extends Controller
         $grid->format('Format');
         $grid->msg_id('Msg id');
         $grid->local_file_name('Local file name')->display(function($img){
-            return '<img src="/wx/images/'.$img.'" width=50px;height=50px;>';
+            return '<img src="/wx/images/'.$img.'" width=100px;height=100px;>';
         });
         $grid->local_file_path('Local file path');
 
