@@ -97,7 +97,9 @@ Route::get('/weChatToken','weChat\weChatController@validToken');
 
 
 
-Route::any('/createMenu','weChat\weChatController@createMenu');     //创建菜单
+Route::any('/createMenu','weChat\weChatController@createMenu');//创建菜单
+
+Route::any('/all','weChat\weChatController@all');
 
 
 

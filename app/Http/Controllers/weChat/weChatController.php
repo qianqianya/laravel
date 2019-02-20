@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\weChat;
+
 use App\Model\WeixinUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,7 +13,8 @@ class weChatController extends Controller
 {
     protected $redis_weixin_access_token = 'str:weixin_access_token';     //微信 access_token
 
-    public function weChat(){
+    public function weChat()
+    {
         echo $_GET['echostr'];
     }
 
@@ -27,7 +29,7 @@ class weChatController extends Controller
         //echo $_GET['echostr'];
         $data = file_get_contents("php://input");
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
-        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
+        file_put_contents('logs/wx_event.log', $log_str, FILE_APPEND);
     }
 
     /**
@@ -47,20 +49,20 @@ class weChatController extends Controller
         $openid = $xml->FromUserName; //用户openid
 
         // 处理用户发送消息
-        if(isset($xml->MsgType)){
-            if($xml->MsgType=='text'){            //用户发送文本消息
+        if (isset($xml->MsgType)) {
+            if ($xml->MsgType == 'text') {            //用户发送文本消息
                 $msg = $xml->Content;
-                $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. 'aaaa'.']]></Content></xml>';
+                $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . $msg . 'aaaa' . ']]></Content></xml>';
                 echo $xml_response;
-            }elseif($xml->MsgType=='image'){       //用户发送图片信息
+            } elseif ($xml->MsgType == 'image') {       //用户发送图片信息
                 //视业务需求是否需要下载保存图片
-                if(1){  //下载图片素材
+                if (1) {  //下载图片素材
                     $this->dlWxImg($xml->MediaId);
-                    $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. str_random(10) . ' >>> ' . date('Y-m-d H:i:s') .']]></Content></xml>';
+                    $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . str_random(10) . ' >>> ' . date('Y-m-d H:i:s') . ']]></Content></xml>';
                     echo $xml_response;
                 }
             }
-            
+
         }
 
         if ($event == 'subscribe') {
@@ -96,16 +98,16 @@ class weChatController extends Controller
                 $id = WeixinUser::insertGetId($user_data);      //保存用户信息
                 var_dump($id);
             }
-            $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.'您好，谢谢您的关注'.']]></Content></xml>';
+            $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . '您好，谢谢您的关注' . ']]></Content></xml>';
             echo $xml_response;
 
-        }else if($event=='CLICK'){
-            if($xml->EventKey=='didi'){
-                $this->didi($openid,$xml->ToUserName);
+        } else if ($event == 'CLICK') {
+            if ($xml->EventKey == 'didi') {
+                $this->didi($openid, $xml->ToUserName);
             }
         }
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
-        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
+        file_put_contents('logs/wx_event.log', $log_str, FILE_APPEND);
     }
 
     /**
@@ -113,10 +115,10 @@ class weChatController extends Controller
      * @param $from
      * 回复消息
      */
-    public function didi($openid,$from)
+    public function didi($openid, $from)
     {
         // 文本消息
-        $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$from.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. 'Hello World, 现在时间'. date('Y-m-d H:i:s') .']]></Content></xml>';
+        $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $from . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . 'Hello World, 现在时间' . date('Y-m-d H:i:s') . ']]></Content></xml>';
         echo $xml_response;
     }
 
@@ -128,14 +130,14 @@ class weChatController extends Controller
 
         //获取缓存
         $token = Redis::get($this->redis_weixin_access_token);
-        if(!$token){        // 无缓存 请求微信接口
-            $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WEIXIN_APPID').'&secret='.env('WEIXIN_APPSECRET');
-            $data = json_decode(file_get_contents($url),true);
+        if (!$token) {        // 无缓存 请求微信接口
+            $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . env('WEIXIN_APPID') . '&secret=' . env('WEIXIN_APPSECRET');
+            $data = json_decode(file_get_contents($url), true);
 
             //记录缓存
             $token = $data['access_token'];
-            Redis::set($this->redis_weixin_access_token,$token);
-            Redis::setTimeout($this->redis_weixin_access_token,3600);
+            Redis::set($this->redis_weixin_access_token, $token);
+            Redis::setTimeout($this->redis_weixin_access_token, 3600);
         }
         return $token;
 
@@ -149,10 +151,12 @@ class weChatController extends Controller
     {
         //$openid = 'oo8Oz0skvOcYMVI-qHQb5gX43r0g';
         $access_token = $this->getWXAccessToken();
-        $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
+        $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token=' . $access_token . '&openid=' . $openid . '&lang=zh_CN';
 
-        $data = json_decode(file_get_contents($url),true);
-        echo '<pre>';print_r($data);echo '</pre>';
+        $data = json_decode(file_get_contents($url), true);
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
         return $data;
     }
 
@@ -231,7 +235,7 @@ class weChatController extends Controller
 
     public function dlWxImg($media_id)
     {
-        $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getWXAccessToken().'&media_id='.$media_id;
+        $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token=' . $this->getWXAccessToken() . '&media_id=' . $media_id;
         //echo $url;echo '</br>';
 
         //保存图片
@@ -241,18 +245,38 @@ class weChatController extends Controller
 
         //获取文件名
         $file_info = $response->getHeader('Content-disposition');
-        $file_name = substr(rtrim($file_info[0],'"'),-20);
+        $file_name = substr(rtrim($file_info[0], '"'), -20);
 
-        $wx_image_path = 'wx/images/'.$file_name;
+        $wx_image_path = 'wx/images/' . $file_name;
         //保存图片
-        $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
-        if($r){     //保存成功
+        $r = Storage::disk('local')->put($wx_image_path, $response->getBody());
+        if ($r) {     //保存成功
             echo '保存成功';
-        }else{      //保存失败
+        } else {      //保存失败
             echo "保存失败";
             echo '</br>';
             echo $r['errmsg'];
         }
     }
 
+    /**
+     * 群发
+     */
+    public function all()
+    {
+        $access_token = $this->getWXAccessToken();
+        $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=' . $access_token;
+        $param = [
+                    "filter"=>[
+                        "is_to_all"=>true
+                    ],
+                    "text"=>[
+                        "content"=>"来啦老弟."
+                    ],
+                    "msgtype"=>"text"
+                ];
+        $result = CurlPost($url,$param);
+        var_dump($result);
+
+    }
 }
