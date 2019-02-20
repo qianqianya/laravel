@@ -285,7 +285,7 @@ class weChatController extends Controller
         $response_arr = json_decode($r->getBody(), true);
         echo '<pre>';
         print_r($response_arr);
-        echo '</pre>';die;
+        echo '</pre>';
 
         if ($response_arr['errcode'] == 0) {
             echo "发送成功";
