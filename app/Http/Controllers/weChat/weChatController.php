@@ -281,11 +281,11 @@ class weChatController extends Controller
         $r = $client->Request('POST', $url, [
             'body' => json_encode($param, JSON_UNESCAPED_UNICODE)
         ]);
-        var_dump($r);exit;
+        //var_dump($r);exit;
         $response_arr = json_decode($r->getBody(), true);
         echo '<pre>';
         print_r($response_arr);
-        echo '</pre>';
+        echo '</pre>';die;
 
         if ($response_arr['errcode'] == 0) {
             echo "发送成功";
