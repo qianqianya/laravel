@@ -17,5 +17,7 @@ Route::group([
 
     $router->resource('/wxuser',WeixinController::class);
 
+    $router->resource('/wxmedia',WeimediaController::class);
+
 
 });
