@@ -84,11 +84,17 @@ class WeixinController extends Controller
         $grid->id('Id');
         $grid->uid('Uid');
         $grid->openid('Openid');
-        $grid->add_time('Add time');
+        $grid->add_time('Add time')->display(function($time){
+            return date('Y-m-d H:s:i',$time);
+        });;
         $grid->nickname('Nickname');
         $grid->sex('Sex');
-        $grid->headimgurl('Headimgurl');
-        $grid->subscribe_time('Subscribe time');
+        $grid->headimgurl('Headimgurl')->display(function($img_url){
+            return '<img src="'.$img_url.'">';
+        });
+        $grid->subscribe_time('Subscribe time')->display(function($time){
+            return date('Y-m-d H:s:i',$time);
+        });
 
         return $grid;
     }
