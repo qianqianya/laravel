@@ -123,6 +123,36 @@ class weChatController extends Controller
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents('logs/wx_event.log', $log_str, FILE_APPEND);
     }
+    /*
+    * 下载图片素材
+    */
+    public function dlWxImg($media_id)
+    {
+        $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token=' . $this->getWXAccessToken() . '&media_id=' . $media_id;
+        //echo $url;echo '</br>';
+
+        //保存图片
+        $client = new GuzzleHttp\Client();
+        $response = $client->get($url);
+        //$h = $response->getHeaders();
+
+        //获取文件名
+        $file_info = $response->getHeader('Content-disposition');
+        $file_name = substr(rtrim($file_info[0], '"'), -20);
+
+        $wx_image_path = 'wx/images/' . $file_name;
+        //保存图片
+        $r = Storage::disk('local')->put($wx_image_path, $response->getBody());
+        if ($r) {     //保存成功
+            echo '保存成功';
+        } else {      //保存失败
+            echo "保存失败";
+            echo '</br>';
+            echo $r['errmsg'];
+        }
+        return $file_name;
+    }
+
 
     /**
      * @param $openid
@@ -244,32 +274,6 @@ class weChatController extends Controller
             echo '</br>';
             echo $response_arr['errmsg'];
 
-        }
-    }
-
-    public function dlWxImg($media_id)
-    {
-        $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token=' . $this->getWXAccessToken() . '&media_id=' . $media_id;
-        //echo $url;echo '</br>';
-
-        //保存图片
-        $client = new GuzzleHttp\Client();
-        $response = $client->get($url);
-        //$h = $response->getHeaders();
-
-        //获取文件名
-        $file_info = $response->getHeader('Content-disposition');
-        $file_name = substr(rtrim($file_info[0], '"'), -20);
-
-        $wx_image_path = 'wx/images/' . $file_name;
-        //保存图片
-        $r = Storage::disk('local')->put($wx_image_path, $response->getBody());
-        if ($r) {     //保存成功
-            echo '保存成功';
-        } else {      //保存失败
-            echo "保存失败";
-            echo '</br>';
-            echo $r['errmsg'];
         }
     }
 
