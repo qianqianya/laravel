@@ -266,7 +266,7 @@ class weChatController extends Controller
     {
         $access_token = $this->getWXAccessToken();
         $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=' . $access_token;
-        var_dump($url);exit;
+        //var_dump($url);exit;
         $client = new GuzzleHttp\Client(['base_url' => $url]);
         $param = [
                     "filter"=>[
@@ -277,6 +277,7 @@ class weChatController extends Controller
                     ],
                     "msgtype"=>"text"
                 ];
+        var_dump($param);exit;
         $r = $client->Request('POST', $url, [
             'body' => json_encode($param, JSON_UNESCAPED_UNICODE)
         ]);
