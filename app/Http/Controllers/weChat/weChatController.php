@@ -277,7 +277,7 @@ class weChatController extends Controller
                     ],
                     "msgtype"=>"text"
                 ];
-        var_dump($param);exit;
+        ///var_dump($param);exit;
         $r = $client->Request('POST', $url, [
             'body' => json_encode($param, JSON_UNESCAPED_UNICODE)
         ]);
