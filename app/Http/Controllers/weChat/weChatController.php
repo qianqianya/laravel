@@ -60,8 +60,7 @@ class weChatController extends Controller
                     echo $xml_response;
                 }
             }
-
-            exit();
+            
         }
 
         if ($event == 'subscribe') {
@@ -230,30 +229,30 @@ class weChatController extends Controller
         }
     }
 
-        public function dlWxImg($media_id)
-        {
-            $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getWXAccessToken().'&media_id='.$media_id;
-            //echo $url;echo '</br>';
+    public function dlWxImg($media_id)
+    {
+        $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getWXAccessToken().'&media_id='.$media_id;
+        //echo $url;echo '</br>';
 
-            //保存图片
-            $client = new GuzzleHttp\Client();
-            $response = $client->get($url);
-            //$h = $response->getHeaders();
+        //保存图片
+        $client = new GuzzleHttp\Client();
+        $response = $client->get($url);
+        //$h = $response->getHeaders();
 
-            //获取文件名
-            $file_info = $response->getHeader('Content-disposition');
-            $file_name = substr(rtrim($file_info[0],'"'),-20);
+        //获取文件名
+        $file_info = $response->getHeader('Content-disposition');
+        $file_name = substr(rtrim($file_info[0],'"'),-20);
 
-            $wx_image_path = 'wx/images/'.$file_name;
-            //保存图片
-            $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
-            if($r){     //保存成功
-                echo '保存成功';
-            }else{      //保存失败
-                echo "保存失败";
-                echo '</br>';
-                echo $r['errmsg'];
-            }
+        $wx_image_path = 'wx/images/'.$file_name;
+        //保存图片
+        $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
+        if($r){     //保存成功
+            echo '保存成功';
+        }else{      //保存失败
+            echo "保存失败";
+            echo '</br>';
+            echo $r['errmsg'];
+        }
     }
 
 }
