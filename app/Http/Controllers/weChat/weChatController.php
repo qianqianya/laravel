@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\weChat;
 
 use App\Model\WeixinUser;
+use App\Model\WeixinMedia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
