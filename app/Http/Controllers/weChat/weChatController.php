@@ -279,7 +279,7 @@ class weChatController extends Controller
                 ];
         ///var_dump($param);exit;
         $r = $client->Request('POST', $url, [
-            'body' => json_encode($param)
+            'body' => json_encode($param, JSON_UNESCAPED_UNICODE)
         ]);
         var_dump($r);exit;
         $response_arr = json_decode($r->getBody(), true);
