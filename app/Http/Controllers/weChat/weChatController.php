@@ -74,55 +74,54 @@ class weChatController extends Controller
 
                     $m_id = WeixinMedia::insertGetId($data);
                     var_dump($m_id);
-                } elseif ($xml->MsgType == 'voice') {        //处理语音信息
-                    $this->dlVoice($xml->MediaId);
-                } elseif ($xml->MsgType == 'event') {
-                    if ($event == 'subscribe') {
-                        $openid = $xml->FromUserName;               //用户openid
-                        $sub_time = $xml->CreateTime;               //扫码关注时间
-
-
-                        echo 'openid: ' . $openid;
-                        echo '</br>';
-                        echo '$sub_time: ' . $sub_time;
-
-                        //获取用户信息
-                        $user_info = $this->getUserInfo($openid);
-                        echo '<pre>';
-                        print_r($user_info);
-                        echo '</pre>';
-
-                        //保存用户信息
-                        $u = WeixinUser::where(['openid' => $openid])->first();
-                        //var_dump($u);die;
-                        if ($u) {       //用户不存在
-                            echo '用户已存在';
-                        } else {
-                            $user_data = [
-                                'openid' => $openid,
-                                'add_time' => time(),
-                                'nickname' => $user_info['nickname'],
-                                'sex' => $user_info['sex'],
-                                'headimgurl' => $user_info['headimgurl'],
-                                'subscribe_time' => $sub_time,
-                            ];
-
-                            $id = WeixinUser::insertGetId($user_data);      //保存用户信息
-                            var_dump($id);
-                        }
-                        $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . '您好，谢谢您的关注' . ']]></Content></xml>';
-                        echo $xml_response;
-
-                    } else if ($event == 'CLICK') {
-                        if ($xml->EventKey == 'didi') {
-                            $this->didi($openid, $xml->ToUserName);
-                        }
-                    }
-                    $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
-                    file_put_contents('logs/wx_event.log', $log_str, FILE_APPEND);
                 }
-            }
+            } elseif ($xml->MsgType == 'voice') {        //处理语音信息
+                $this->dlVoice($xml->MediaId);
+            } elseif ($xml->MsgType == 'event') {
+                if ($event == 'subscribe') {
+                    $openid = $xml->FromUserName;               //用户openid
+                    $sub_time = $xml->CreateTime;               //扫码关注时间
 
+
+                    echo 'openid: ' . $openid;
+                    echo '</br>';
+                    echo '$sub_time: ' . $sub_time;
+
+                    //获取用户信息
+                    $user_info = $this->getUserInfo($openid);
+                    echo '<pre>';
+                    print_r($user_info);
+                    echo '</pre>';
+
+                    //保存用户信息
+                    $u = WeixinUser::where(['openid' => $openid])->first();
+                    //var_dump($u);die;
+                    if ($u) {       //用户不存在
+                        echo '用户已存在';
+                    } else {
+                        $user_data = [
+                            'openid' => $openid,
+                            'add_time' => time(),
+                            'nickname' => $user_info['nickname'],
+                            'sex' => $user_info['sex'],
+                            'headimgurl' => $user_info['headimgurl'],
+                            'subscribe_time' => $sub_time,
+                        ];
+
+                        $id = WeixinUser::insertGetId($user_data);      //保存用户信息
+                        var_dump($id);
+                    }
+                    $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . '您好，谢谢您的关注' . ']]></Content></xml>';
+                    echo $xml_response;
+
+                } else if ($event == 'CLICK') {
+                    if ($xml->EventKey == 'didi') {
+                        $this->didi($openid, $xml->ToUserName);
+                    }
+                }
+                /*$log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
+                file_put_contents('logs/wx_event.log', $log_str, FILE_APPEND);*/
+            }
         }
 
 
