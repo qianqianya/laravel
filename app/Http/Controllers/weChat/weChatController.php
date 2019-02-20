@@ -77,6 +77,8 @@ class weChatController extends Controller
                 }
             } elseif ($xml->MsgType == 'voice') {        //处理语音信息
                 $this->dlVoice($xml->MediaId);
+                $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . str_random(10) . ' >>> ' . date('Y-m-d H:i:s') . ']]></Content></xml>';
+                echo $xml_response;
             } elseif ($xml->MsgType == 'event') {
                 if ($event == 'subscribe') {
                     $openid = $xml->FromUserName;               //用户openid
@@ -176,9 +178,11 @@ class weChatController extends Controller
         //保存图片
         $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
         if($r){     //保存成功
-
+            echo '保存成功';
         }else{      //保存失败
-
+            echo "保存失败";
+            echo '</br>';
+            echo $r['errmsg'];
         }
     }
 
