@@ -368,7 +368,6 @@ class weChatController extends Controller
         //echo '<pre>';
         //print_r($response_arr);
         // echo '</pre>';
-
         if ($response_arr['errcode'] == 0) {
             echo "发送成功";
         } else {
@@ -377,7 +376,9 @@ class weChatController extends Controller
             echo $response_arr['errmsg'];
 
         }
-        return view('mass.mass');
+
+    }
+    public function mass(){
 
     }
 }

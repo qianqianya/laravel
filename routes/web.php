@@ -105,6 +105,8 @@ Route::any('/createMenu','weChat\weChatController@createMenu');
 //群发
 Route::any('/all','weChat\weChatController@all');
 
+Route::any('/mass','weChat\weChatController@mass');
+
 
 
 

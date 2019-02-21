@@ -12,5 +12,5 @@
 
     </form>
 
-    <button type="submit" class="btn btn-primary" id="add_cart_btn">开始发布</button>
+    <button type="submit" class="btn btn-primary" id="add_cart_btn"><a href="/all">开始发布</a></button>
 @endsection
