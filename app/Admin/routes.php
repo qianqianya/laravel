@@ -19,5 +19,8 @@ Route::group([
 
     $router->resource('/wxmedia',WeimediaController::class);
 
+    $router->get('/wxsendmsg','WeixinController@sendMsgView');      //
+    $router->post('/wxsendmsg','WeixinController@sendMsg');
+
 
 });
