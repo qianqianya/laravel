@@ -346,8 +346,6 @@ class weChatController extends Controller
      */
     public function all()
     {
-        $content=$_POST('content');
-        var_dump($content);exit;
         $access_token = $this->getWXAccessToken();
         $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$access_token;
         //var_dump($url);exit;
@@ -357,7 +355,7 @@ class weChatController extends Controller
                 "is_to_all"=>true
             ],
             "text"=>[
-                "content"=>$a
+                "content"=>"aaaa"
             ],
             "msgtype"=>"text"
         ];
@@ -379,8 +377,5 @@ class weChatController extends Controller
 
         }
 
-    }
-    public function mass(){
-        return view('mass.mass');
     }
 }
