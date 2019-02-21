@@ -9,6 +9,8 @@
                 群发内容<input type="text" class="form-control" placeholder="请输入您要发布的内容" >
             </div>
         </div>
-        <button type="submit" class="btn btn-primary" id="add_cart_btn">开始发布</button>
+
     </form>
+
+    <button type="submit" class="btn btn-primary" id="add_cart_btn">开始发布</button>
 @endsection
