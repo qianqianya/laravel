@@ -379,6 +379,6 @@ class weChatController extends Controller
 
     }
     public function mass(){
-        return ('mass.mass');
+        return view('mass.mass');
     }
 }
