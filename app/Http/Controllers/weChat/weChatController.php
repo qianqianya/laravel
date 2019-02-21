@@ -88,7 +88,6 @@ class weChatController extends Controller
                     $openid = $xml->FromUserName;               //用户openid
                     $sub_time = $xml->CreateTime;               //扫码关注时间
 
-
                     echo 'openid: ' . $openid;
                     echo '</br>';
                     echo '$sub_time: ' . $sub_time;
@@ -190,6 +189,10 @@ class weChatController extends Controller
         }
     }
 
+    /**
+     * @param $media_id
+     * 下载视频
+     */
     public function dlVideo($media_id)
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getWXAccessToken().'&media_id='.$media_id;
@@ -374,6 +377,7 @@ class weChatController extends Controller
             echo $response_arr['errmsg'];
 
         }
+        return view('mass.mass');
 
     }
 }

@@ -26,8 +26,6 @@ Route::any('center','User\UserController@center');
 //退出
 Route::any('loginQuit','User\UserController@loginQuit');
 
-
-
 //商品主页
 Route::any('goodsList','Goods\GoodsController@goodsList');
 
@@ -36,10 +34,8 @@ Route::any('goodsDel/{goods_id}','Goods\GoodsController@goodsDel')->middleware('
 
 //商品详情
 Route::any('goodsDetails/{goods_id}','Goods\GoodsController@goodsDetails')->middleware('check.login.token');
+
 Route::any('/keyword','Goods\GoodsController@keyword')->middleware('check.login.token');
-
-
-
 
 //购物车展示
 Route::any('cartList','Cart\CartController@cartList')->middleware('check.login.token');
@@ -56,9 +52,6 @@ Route::any('cartDel/{goods_id}','Cart\CartController@cartDel')->middleware('chec
 //购物车删除2
 Route::any('cartDel2/{c_id}','Cart\CartController@cartDel2')->middleware('check.login.token');
 
-
-
-
 //提交订单
 Route::any('orderAdd','Order\OrderController@orderAdd')->middleware('check.login.token');
 
@@ -74,20 +67,31 @@ Route::any('orderPay/{o_id}','Order\OrderController@orderPay')->middleware('chec
 //跳转网址
 Route::any('Pay','Order\OrderController@pay');
 
-Route::post('payNotify','Pay\AlipayController@notify');//支付宝支付 通知回调
+//支付宝支付 通知回调
+Route::post('payNotify','Pay\AlipayController@notify');
 
+//支付展示
 Route::any('payList/{o_id}','Pay\AlipayController@payList');
+
+//同步
 Route::any('sync','Pay\AlipayController@sync');
+
+//异步
 Route::any('async','Pay\AlipayController@async');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//上传
 Route::get('/upload','Goods\GoodsController@uploadIndex');
+
+//上传pdf格式
 Route::post('/goods/upload/pdf','Goods\GoodsController@uploadPDF');
 
+//电影票购买
 Route::any('/movie','Movie\MovieController@movie')->middleware('check.login.token');
 
+//微信
 Route::get('/weChat','weChat\weChatController@weChat');
 
 Route::post('/weChat','weChat\weChatController@weChatToken');
@@ -95,11 +99,12 @@ Route::post('/weChat','weChat\weChatController@weChatToken');
 Route::post('/weChatToken','weChat\weChatController@validToken');
 Route::get('/weChatToken','weChat\weChatController@validToken');
 
+//创建菜单
+Route::any('/createMenu','weChat\weChatController@createMenu');
 
-
-Route::any('/createMenu','weChat\weChatController@createMenu');//创建菜单
-
+//群发
 Route::any('/all','weChat\weChatController@all');
+
 
 
 
