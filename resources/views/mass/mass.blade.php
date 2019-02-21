@@ -2,7 +2,7 @@
 @extends('layout.goods')
 
 @section('content')
-    <form class="form-inline" method="post">
+    <form class="form-inline" method="post" action="/all">
         <div class="form-group">
             <label class="sr-only" for="goods_num">群发</label>
             <div class="input-group">
@@ -12,5 +12,5 @@
 
     </form>
 
-    <button type="submit" class="btn btn-primary" id="add_cart_btn"><a href="/all">开始发布</a></button>
+    <button type="submit" class="btn btn-primary" id="add_cart_btn">开始发布</button>
 @endsection
