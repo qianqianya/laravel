@@ -355,7 +355,7 @@ class weChatController extends Controller
                 "is_to_all"=>true
             ],
             "text"=>[
-                "content"=>"苗博学是傻子."
+                "content"=>"aaaa."
             ],
             "msgtype"=>"text"
         ];
