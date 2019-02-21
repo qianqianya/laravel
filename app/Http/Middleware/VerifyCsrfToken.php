@@ -18,5 +18,6 @@ class VerifyCsrfToken extends Middleware
         '/weChat',
         '/weChatToken',
         '/material',
+        'form/test'
     ];
 }
