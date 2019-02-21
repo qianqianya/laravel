@@ -105,6 +105,16 @@ Route::any('/createMenu','weChat\weChatController@createMenu');
 //群发
 Route::any('/all','weChat\weChatController@all');
 
+//获取永久素材列表
+Route::get('/materialList','weChat\weChatController@materialList');
+
+//上传永久素材
+Route::get('/upMaterial','weChat\weChatController@upMaterial');
+
+//创建菜单
+Route::post('/material','weChat\weChatController@materialTest');
+
+
 
 
 
