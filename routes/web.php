@@ -114,6 +114,10 @@ Route::get('/upMaterial','weChat\weChatController@upMaterial');
 //创建菜单
 Route::post('/material','weChat\weChatController@materialTest');
 
+//素材添加
+Route::get('/form/show','weChat\weChatController@formShow');     //表单测试
+Route::post('/form/test','weChat\weChatController@formTest');     //表单测试
+
 
 
 

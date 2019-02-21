@@ -464,7 +464,7 @@ class weChatController extends Controller
     public function formShow()
     {
 
-        return view('test.form');
+        return view('mass.mass');
 
     }
 
