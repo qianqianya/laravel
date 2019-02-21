@@ -347,6 +347,7 @@ class weChatController extends Controller
     public function all()
     {
         $a=$_POST('aaa');
+        var_dump($a);exit;
         $access_token = $this->getWXAccessToken();
         $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$access_token;
         //var_dump($url);exit;
