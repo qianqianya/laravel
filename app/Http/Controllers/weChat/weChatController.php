@@ -470,9 +470,9 @@ class weChatController extends Controller
 
     public function formTest(Request $request)
     {
-        //echo '<pre>';print_r($_POST);echo '</pre>';echo '<hr>';
-        //echo '<pre>';print_r($_FILES);echo '</pre>';echo '<hr>';
-
+        echo '<pre>';print_r($_POST);echo '</pre>';echo '<hr>';
+        echo '<pre>';print_r($_FILES);echo '</pre>';echo '<hr>';
+        exit;
         //保存文件
         $img_file = $request->file('media');
         //echo '<pre>';print_r($img_file);echo '</pre>';echo '<hr>';
