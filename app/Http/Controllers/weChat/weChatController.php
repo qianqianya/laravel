@@ -475,7 +475,7 @@ class weChatController extends Controller
         //exit;
         //保存文件
         $img_file = $request->file('media');
-        //echo '<pre>';print_r($img_file);echo '</pre>';echo '<hr>';
+        echo '<pre>';print_r($img_file);echo '</pre>';echo '<hr>';exit;
 
         $img_origin_name = $img_file->getClientOriginalName();
         echo 'originName: '.$img_origin_name;echo '</br>';
