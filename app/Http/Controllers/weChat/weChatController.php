@@ -4,6 +4,7 @@ namespace App\Http\Controllers\weChat;
 
 use App\Model\WeixinUser;
 use App\Model\WeixinMedia;
+use App\Model\Wxmaterial;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
@@ -483,16 +484,25 @@ class weChatController extends Controller
         echo 'ext: '.$file_ext;echo '</br>';
 
         //重命名
-        $new_file_name = str_random(15). '.'.$file_ext;
-        echo 'new_file_name: '.$new_file_name;echo '</br>';
-
-        //文件保存路径
+        $new_file_name = str_random(15). '.'.$file_ext;        //文件保存路径
 
 
         //保存文件
+
+        echo 'new_file_name: '.$new_file_name;echo '</br>';
+
         $save_file_path = $request->media->storeAs('form_test',$new_file_name);       //返回保存成功之后的文件路径
 
         echo 'save_file_path: '.$save_file_path;echo '<hr>';
+        $data=[
+            "url"=>$save_file_path
+        ];
+        $id = Wxmaterial::insertGetId($data);
+        if($id){
+            echo  '添加成功';
+        }else{
+            echo  '添加失败';
+        }
 
         //上传至微信永久素材
         $this->upMaterialTest($save_file_path);
