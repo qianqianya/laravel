@@ -83,7 +83,7 @@ class MaterialController extends Controller
 
         $grid->id('Id');
         $grid->url('Url')->display(function($url_img){
-            return '<img src="/'.$url_img.'">';
+            return '<img src="/'.$url_img.'" width=80px;height=80px;>';
         });
         $grid->add_time('Add time');
 
