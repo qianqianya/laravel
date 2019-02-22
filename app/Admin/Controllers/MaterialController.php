@@ -82,7 +82,9 @@ class MaterialController extends Controller
         $grid = new Grid(new Wxmaterial);
 
         $grid->id('Id');
-        $grid->url('Url');
+        $grid->url('Url')->display(function($url_img){
+            return '<img src="'.$url_img.'">';
+        });
         $grid->add_time('Add time');
 
         return $grid;
