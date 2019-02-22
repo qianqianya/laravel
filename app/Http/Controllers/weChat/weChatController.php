@@ -495,7 +495,8 @@ class weChatController extends Controller
 
         echo 'save_file_path: '.$save_file_path;echo '<hr>';
         $data=[
-            "url"=>$save_file_path
+            "url"=>$save_file_path,
+            "add_time"=>time()
         ];
         $id = Wxmaterial::insertGetId($data);
         if($id){
