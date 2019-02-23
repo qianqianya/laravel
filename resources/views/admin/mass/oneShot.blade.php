@@ -113,45 +113,47 @@
     <!--//红包模板.end -->
 </div>
 <IMG src="file:///C:\Users\a1683\AppData\Roaming\feiq\RichOle\2919792381.bmp">Js代码片段：
-<IMG src="file:///C:\Users\a1683\AppData\Roaming\feiq\RichOle\418329596.bmp">//...长按弹出菜单$("#J__chatMsgList").on("longTap", "li .msg", function(e){
-varthat = $(this), menuTpl, menuNode = $("
-<div class='wc__chatTapMenu animated anim-fadeIn'></div>");
-that.addClass("taped");
-that.parents("li").siblings().find(".msg").removeClass("taped");
-varisRevoke = that.parents("li").hasClass("me");
-var_revoke = isRevoke ? "<a href='#'><i class='ico i4'></i>撤回</a>" : "";
+<IMG src="file:///C:\Users\a1683\AppData\Roaming\feiq\RichOle\418329596.bmp">
+<script>
+    //...长按弹出菜单
+    $("#J__chatMsgList").on("longTap", "li .msg", function (e) {
+        varthat = $(this), menuTpl, menuNode = $(" <div class='wc__chatTapMenu animated anim-fadeIn'></div>");
+        that.addClass("taped");
+        that.parents("li").siblings().find(".msg").removeClass("taped");
+        varisRevoke = that.parents("li").hasClass("me");
+        var_revoke = isRevoke ? "<a href='#'><i class='ico i4'></i>撤回</a>" : "";
 
-if(that.hasClass("picture")){
-console.log("图片长按");
-menuTpl = "
-<div class='menu menu-picture'><a href='#'><i class='ico i1'></i>复制</a><a href='#'><i class='ico i2'></i>收藏</a><a
-            href='#'><i class='ico i3'></i>另存为</a>"+ _revoke +"<a href='#'><i class='ico i5'></i>删除</a></div>";
-}elseif(that.hasClass("video")){
-console.log("视频长按");
-menuTpl = "
-<div class='menu menu-video'><a href='#'><i class='ico i3'></i>另存为</a>" + _revoke +"<a href='#'><i class='ico i5'></i>删除</a>
-</div>";
-}else{
-console.log("文字长按");
-menuTpl = "
-<div class='menu menu-text'><a href='#'><i class='ico i1'></i>复制</a><a href='#'><i class='ico i2'></i>收藏</a>" + _revoke
-    +"<a href='#'><i class='ico i5'></i>删除</a></div>";
-}
+        if (that.hasClass("picture")) {
+            console.log("图片长按");
+            menuTpl = " <div class='menu menu-picture'><a href='#'><i class='ico i1'></i>复制</a><a href='#'><i class='ico i2'></i>收藏</a><ahref='#'><i class='ico i3'></i>另存为</a>" + _revoke + "<a href='#'><i class='ico i5'></i>删除</a></div>";
+        }elseif(that.hasClass("video"))
+        {
+            console.log("视频长按");
+            menuTpl = " <div class='menu menu-video'><a href='#'><i class='ico i3'></i>另存为</a>" + _revoke + "<a href='#'><i class='ico i5'></i>删除</a> </div>";
+        }else{
+            console.log("文字长按");
+            menuTpl = " < div class = 'menu menu-text' > < a href = '#' > < i class = 'ico i1' > < / i > 复制 < / a > <a href = '#' > < i class = 'ico i2' > < / i > 收藏 < / a > " + _revoke
+                    + "<a href='#'><i class='ico i5'></i>删除</a></div>";
+        }
 
-if(!$(".wc__chatTapMenu").length){
-$(".wc__chatMsg-panel").append(menuNode.html(menuTpl));
-autoPos();
-}else{
-$(".wc__chatTapMenu").hide().html(menuTpl).fadeIn(250);
-autoPos();
-}
+        if (!$(".wc__chatTapMenu").length) {
+            $(".wc__chatMsg-panel").append(menuNode.html(menuTpl));
+            autoPos();
+        } else {
+            $(".wc__chatTapMenu").hide().html(menuTpl).fadeIn(250);
+            autoPos();
+        }
 
-functionautoPos(){
-console.log(that.position().top)
-var_other = that.parents("li").hasClass("others");
-$(".wc__chatTapMenu").css({
-position: "absolute",
-left: that.position().left + parseInt(that.css("marginLeft")) + (_other ? 0 : that.outerWidth() - $(".wc__chatTapMenu").outerWidth()),
-top: that.position().top - $(".wc__chatTapMenu").outerHeight() - 8});
-}
-});
+        functionautoPos()
+        {
+            console.log(that.position().top)
+            var_other = that.parents("li").hasClass("others");
+            $(".wc__chatTapMenu").css({
+                position: "absolute",
+                left: that.position().left + parseInt(that.css("marginLeft")) + (_other ? 0 : that.outerWidth() - $(".wc__chatTapMenu").outerWidth()),
+                top: that.position().top - $(".wc__chatTapMenu").outerHeight() - 8
+            });
+        }
+    });
+
+</script>
