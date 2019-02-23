@@ -26,7 +26,7 @@
                 <li class="me"  style="height: 200px;float: right;">
                     <div><img style="width:50px;height:50px;" src="{{env('IMG_URL')}}form_test/caVgMRjKMTiiazP.jpg" alt=""></div>
                     <div class="content">
-                        <p class="author">{{$msg->nickname}}</p>
+                        <p class="author">{{$msg->nickname}};</p>
                         <div class="msg" >
                             么么哒，马总发个红包呗！
                         </div>
@@ -85,7 +85,7 @@
 </body>
 </html>
 <script>
-    // ...长按弹出菜单
+  {{--  // ...长按弹出菜单
     $("#J__chatMsgList").on("longTap", "li .msg", function(e){
         var that = $(this), menuTpl, menuNode = $("<div class='wc__chatTapMenu animated anim-fadeIn'></div>");
         that.addClass("taped");
@@ -229,6 +229,6 @@
 
             wchat_ToBottom();
         }
-    });
+    });--}}
 </script>
 
