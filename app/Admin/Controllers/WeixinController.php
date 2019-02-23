@@ -225,17 +225,11 @@ class WeixinController extends Controller
         echo '<pre>';print_r($_POST);echo '</pre>';
     }
 
-    public function oneShot(Content $content,$id)
+    public function oneShot(Content $content)
     {
-        //return view('admin.weixin.send_msg');
-        $data=WeixinUser::where(['id'=>$id])->first();
-        $msg=[
-            'msg'=>$data
-        ];
-
         return $content
             ->header('单发')
             ->description('单发消息')
-            ->body(view('admin.mass.oneShot',$msg));
+            ->body(view('admin.mass.oneShot'));
     }
 }
