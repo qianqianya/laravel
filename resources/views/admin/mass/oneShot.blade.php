@@ -112,8 +112,8 @@
     </div>
     <!--//红包模板.end -->
 </div>
-<IMG src="file:///C:\Users\a1683\AppData\Roaming\feiq\RichOle\2919792381.bmp">Js代码片段：
-<IMG src="file:///C:\Users\a1683\AppData\Roaming\feiq\RichOle\418329596.bmp">
+<img src="file:///F:\娱乐\保存的图片\7f6301b4.jpg">
+<img src="file:///F:\娱乐\保存的图片\7f6301b4.jpg">
 <script>
     //...长按弹出菜单
     $("#J__chatMsgList").on("longTap", "li .msg", function (e) {
