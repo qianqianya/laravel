@@ -1,17 +1,75 @@
-<!--//微聊底部功能面板 -->
-<div class="wc__footTool-panel">
-    <!--输入框模块 -->
-    <div class="wc__editor-panel wc__borT flexbox">
-        <div class="wrap-editor flex1">
-            <div class="editor J__wcEditor" contenteditable="true"></div>
+李瑞祥 10:40:00
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>聊天页面</title>
+</head>
+<body>
+<!-- //微聊消息上墙面板 -->
+<div class="wc__chatMsg-panel flex1">
+    <div class="wc__slimscroll2">
+        <div class="chatMsg-cnt">
+            <ul class="clearfix" id="J__chatMsgList">
+                <p align="center"><a href="">﹀</a></p>
+                <p class="time" align="center" ><span>2019年22月31日 晚上22:30</span></p>
+                <!-- 别人-->
+                <li class="others" style="width:2000px;height: 100px;float:left;">
+                    <div><img style="width:50px;height:50px;" src="{{env('IMG_URL')}}form_test/0mnJruzhTpc1B5d.jpg" alt=""></div>
+                    <div class="content">
+                        <p class="author">马云(老子天下第一)</p>
+                        <div class="msg" >
+                            hello 各位女士、先生，欢迎大家来到达摩派，进群后记得修改备注哈~~ 名字+公司/职业/机构
+                        </div>
+                    </div>
+                </li>
+                <!--自己-->
+                <li class="me"  style="height: 200px;float: right;">
+                    <div><img style="width:50px;height:50px;" src="{{env('IMG_URL')}}form_test/0mnJruzhTpc1B5d.jpg" alt=""></div>
+                    <div class="content">
+                        <p class="author">Nice奶思</p>
+                        <div class="msg" >
+                            么么哒，马总发个红包呗！
+                        </div>
+                    </div>
+                </li>
+                <li class="others" style="width:2000px;height: 100px;float:left;">
+                    <div><img style="width:50px;height:50px;" src="{{env('IMG_URL')}}form_test/0mnJruzhTpc1B5d.jpg" alt=""></div>
+                    <div class="content">
+                        <p class="author">马云(老子天下第一)</p>
+                        <div class="msg" >
+                            hello 各位女士、先生，欢迎大家来到达摩派，进群后记得修改备注哈~~ 名字+公司/职业/机构
+                        </div>
+                    </div>
+                </li>
+                <!--自己-->
+                <li class="me"  style="height: 200px;float: right;">
+                    <div><img style="width:50px;height:50px;" src="{{env('IMG_URL')}}form_test/0mnJruzhTpc1B5d.jpg" alt=""></div>
+                    <div class="content">
+                        <p class="author">Nice奶思</p>
+                        <div class="msg" >
+                            么么哒，马总发个红包呗！
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
+    </div>
+</div>
+
+<!-- //微聊底部功能面板 -->
+<div class="wc__footTool-panel" align="bottom">
+    <!-- 输入框模块 -->
+    <form class="wc__editor-panel wc__borT flexbox" method="post" action="">
+        <div style="float: right;"><button type="submit" style="height:33px;">发送</button></div>
+        <div class="wrap-editor flex1" style="border: 1px red solid;width:1000px;float: right;"><div class="editor J__wcEditor" contenteditable="true"></div></div>
         <i class="btn btn-emotion"></i>
         <i class="btn btn-choose"></i>
-        <button class="btn-submit J__wchatSubmit">发送</button>
-    </div>
-    <!--表情、选择模块 -->
+    </form>
+
+    <!-- 表情、选择模块 -->
     <div class="wc__choose-panel wc__borT" style="display: none;">
-        <!--表情区域 -->
+        <!-- 表情区域 -->
         <div class="wrap-emotion" style="display: none;">
             <div class="emotion__cells flexbox flex__direction-column">
                 <div class="emotion__cells-swiper flex1" id="J__swiperEmotion">
@@ -20,134 +78,44 @@
                         <div class="pagination-emotion"></div>
                     </div>
                 </div>
-                <div class="emotion__cells-footer" id="J__emotionFootTab">
-                    <ul class="clearfix">
-                        <li class="swiperTmpl cur" tmpl="swiper__tmpl-emotion01"><img
-                                    src="img/emotion/face01/face-lbl.png" alt=""></li>
-                        <li class="swiperTmpl" tmpl="swiper__tmpl-emotion02"><img src="img/emotion/face02/face-lbl.gif"
-                                                                                  alt=""></li>
-                        <li class="swiperTmpl" tmpl="swiper__tmpl-emotion03"><img src="img/emotion/face03/face-lbl.gif"
-                                                                                  alt=""></li>
-                        <li class="swiperTmpl" tmpl="swiper__tmpl-emotion04"><img src="img/emotion/face04/face-lbl.gif"
-                                                                                  alt=""></li>
-                        <li class="swiperTmpl" tmpl="swiper__tmpl-emotion05"><img src="img/emotion/face05/face-lbl.gif"
-                                                                                  alt=""></li>
-                        <li class="swiperTmpl" tmpl="swiper__tmpl-emotion06"><img src="img/emotion/face06/face-lbl.gif"
-                                                                                  alt=""></li>
-                        <li class="swiperTmplSet"><img src="img/wchat/icon__emotion-set.png" alt=""></li>
-                    </ul>
-                </div>
-            </div>
-        </div>ij
-        <!--选择区域 -->
-        <div class="wrap-choose" style="display: none;">
-            <div class="choose__cells">
-                <ul class="clearfix">
-                    <li>
-                        <a class="J__wchatZp" href="javascript:;">
-                            <span class="img"><img src="img/wchat/icon__choose-zp.png"/><input type="file"
-                                                                                               accept="image/*"/></span>
-                            <em>照片</em>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="J__wchatSp" href="javascript:;">
-                            <span class="img"><img src="img/wchat/icon__choose-sp.png"/><input type="file"
-                                                                                               accept="video/*"/></span>
-                            <em>视频</em>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="J__wchatHb" href="javascript:;">
-                            <span class="img"><img src="img/wchat/icon__choose-hb.png"/></span>
-                            <em>红包</em>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="J__wchatSc" href="javascript:;">
-                            <span class="img"><img src="img/wchat/icon__choose-sc.png"/></span>
-                            <em>我的收藏</em>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="J__wchatWj" href="javascript:;">
-                            <span class="img"><img src="img/wchat/icon__choose-wj.png"/></span>
-                            <em>文件</em>
-                        </a>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
 </div>
-<IMG src="file:///C:\Users\a1683\AppData\Roaming\feiq\RichOle\3961510489.bmp">
-<IMG src="file:///C:\Users\a1683\AppData\Roaming\feiq\RichOle\3366624983.bmp">
-<div class="wc__choosePanel-tmpl">
-    <!--//红包模板.begin -->
-    <div id="J__popupTmpl-Hongbao" style="display:none;">
-        <div class="wc__popupTmpl tmpl-hongbao">
-            <i class="wc-xclose"></i>
-            <ul class="clearfix">
-                <li class="item flexbox">
-                    <label class="txt">总金额</label>
-                    <input class="ipt-txt flex1" type="tel" name="hbAmount" placeholder="0.00"/>
-                    <em class="unit">元</em>
-                </li>
-                <li class="item flexbox">
-                    <label class="txt">红包个数</label>
-                    <input class="ipt-txt flex1" type="tel" name="hbNum" placeholder="填写个数"/>
-                    <em class="unit">个</em>
-                </li>
-                <li class="tips">
-                    在线人数共<em class="memNum">186</em>人
-                </li>
-                <li class="item item-area">
-                    <textarea class="describe" name="content" placeholder="恭喜发财，大吉大利"></textarea>
-                </li>
-                <li class="amountTotal">
-                    ￥<em class="num">0.00</em>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <!--//红包模板.end -->
-</div>
-<img src="file:///F:\娱乐\保存的图片\7f6301b4.jpg">
-<img src="file:///F:\娱乐\保存的图片\7f6301b4.jpg">
+
+</body>
+</html>
 <script>
-    //...长按弹出菜单
-    $("#J__chatMsgList").on("longTap", "li .msg", function (e) {
-        varthat = $(this), menuTpl, menuNode = $(" <div class='wc__chatTapMenu animated anim-fadeIn'></div>");
+    // ...长按弹出菜单
+    $("#J__chatMsgList").on("longTap", "li .msg", function(e){
+        var that = $(this), menuTpl, menuNode = $("<div class='wc__chatTapMenu animated anim-fadeIn'></div>");
         that.addClass("taped");
         that.parents("li").siblings().find(".msg").removeClass("taped");
-        varisRevoke = that.parents("li").hasClass("me");
-        var_revoke = isRevoke ? "<a href='#'><i class='ico i4'></i>撤回</a>" : "";
+        var isRevoke = that.parents("li").hasClass("me");
+        var _revoke = isRevoke ? "<a href='#'><i class='ico i4'></i>撤回</a>" : "";
 
-        if (that.hasClass("picture")) {
+        if(that.hasClass("picture")){
             console.log("图片长按");
-            menuTpl = " <div class='menu menu-picture'><a href='#'><i class='ico i1'></i>复制</a><a href='#'><i class='ico i2'></i>收藏</a><a href='#'><i class='ico i3'></i>另存为</a>" + _revoke + "<a href='#'><i class='ico i5'></i>删除</a></div>";
-        }else if(that.hasClass("video"))
-        {
+            menuTpl = "<div class='menu menu-picture'><a href='#'><i class='ico i1'></i>复制</a><a href='#'><i class='ico i2'></i>收藏</a><a href='#'><i class='ico i3'></i>另存为</a>"+ _revoke +"<a href='#'><i class='ico i5'></i>删除</a></div>";
+        }else if(that.hasClass("video")){
             console.log("视频长按");
-            menuTpl = " <div class='menu menu-video'><a href='#'><i class='ico i3'></i>另存为</a>" + _revoke + "<a href='#'><i class='ico i5'></i>删除</a> </div>";
+            menuTpl = "<div class='menu menu-video'><a href='#'><i class='ico i3'></i>另存为</a>" + _revoke +"<a href='#'><i class='ico i5'></i>删除</a></div>";
         }else{
             console.log("文字长按");
-            menuTpl = " <div class = 'menu menu-text' > <a href = '#' > <i class = 'ico i1' ></i > 复制 </a > <a href = '#' > <i class = 'ico i2' > </i > 收藏 </a > " + _revoke
-                    + "<a href='#'><i class='ico i5'></i>删除</a></div>";
+            menuTpl = "<div class='menu menu-text'><a href='#'><i class='ico i1'></i>复制</a><a href='#'><i class='ico i2'></i>收藏</a>" + _revoke +"<a href='#'><i class='ico i5'></i>删除</a></div>";
         }
 
-        if (!$(".wc__chatTapMenu").length) {
+        if(!$(".wc__chatTapMenu").length){
             $(".wc__chatMsg-panel").append(menuNode.html(menuTpl));
             autoPos();
-        } else {
+        }else{
             $(".wc__chatTapMenu").hide().html(menuTpl).fadeIn(250);
             autoPos();
         }
 
-        function autoPos()
-        {
+        function autoPos(){
             console.log(that.position().top)
-            var_other = that.parents("li").hasClass("others");
+            var _other = that.parents("li").hasClass("others");
             $(".wc__chatTapMenu").css({
                 position: "absolute",
                 left: that.position().left + parseInt(that.css("marginLeft")) + (_other ? 0 : that.outerWidth() - $(".wc__chatTapMenu").outerWidth()),
@@ -156,4 +124,112 @@
         }
     });
 
+    // ...表情、选择区切换
+    $(".wc__editor-panel").on("click", ".btn", function(){
+        var that = $(this);
+        $(".wc__choose-panel").show();
+        if (that.hasClass("btn-emotion")) {
+            $(".wc__choose-panel .wrap-emotion").show();
+            $(".wc__choose-panel .wrap-choose").hide();
+            // 初始化swiper表情
+            !emotionSwiper && $("#J__emotionFootTab ul li.cur").trigger("click");
+        } else if (that.hasClass("btn-choose")) {
+            $(".wc__choose-panel .wrap-emotion").hide();
+            $(".wc__choose-panel .wrap-choose").show();
+        }
+        wchat_ToBottom();
+    });
+
+    // ...处理编辑器信息
+    var $editor = $(".J__wcEditor"), _editor = $editor[0];
+    function surrounds(){
+        setTimeout(function () { //chrome
+            var sel = window.getSelection();
+            var anchorNode = sel.anchorNode;
+            if (!anchorNode) return;
+            if (sel.anchorNode === _editor ||
+                    (sel.anchorNode.nodeType === 3 && sel.anchorNode.parentNode === _editor)) {
+
+                var range = sel.getRangeAt(0);
+                var p = document.createElement("p");
+                range.surroundContents(p);
+                range.selectNodeContents(p);
+                range.insertNode(document.createElement("br")); //chrome
+                sel.collapse(p, 0);
+
+                (function clearBr() {
+                    var elems = [].slice.call(_editor.children);
+                    for (var i = 0, len = elems.length; i < len; i++) {
+                        var el = elems[i];
+                        if (el.tagName.toLowerCase() == "br") {
+                            _editor.removeChild(el);
+                        }
+                    }
+                    elems.length = 0;
+                })();
+            }
+        }, 10);
+    }
+    // 格式化编辑器包含标签
+    _editor.addEventListener("click", function () {
+        //$(".wc__choose-panel").hide();
+    }, true);
+    _editor.addEventListener("focus", function(){
+        surrounds();
+    }, true);
+    _editor.addEventListener("input", function(){
+        surrounds();
+    }, false);
+    // 点击表情
+    $("#J__swiperEmotion").on("click", ".face-list span img", function(){
+        var that = $(this), range;
+
+        if(that.hasClass("face")){ //小表情
+            var img = that[0].cloneNode(true);
+            _editor.focus();
+            _editor.blur(); //输入表情时禁止输入法
+
+            setTimeout(function(){
+                if(document.selection && document.selection.createRange){
+                    document.selection.createRange().pasteHTML(img);
+                }else if(window.getSelection && window.getSelection().getRangeAt){
+                    range = window.getSelection().getRangeAt(0);
+                    range.insertNode(img);
+                    range.collapse(false);
+
+                    var sel = window.getSelection();
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                }
+            }, 10);
+        }else if(that.hasClass("del")){ //删除
+            _editor.focus();
+            _editor.blur(); //输入表情时禁止输入法
+
+            setTimeout(function(){
+                range = window.getSelection().getRangeAt(0);
+                range.collapse(false);
+
+                var sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+                document.execCommand("delete");
+            }, 10);
+        } else if(that.hasClass("lg-face")){ //大表情
+            var _img = that.parent().html();
+            var _tpl = [
+                '<li class="me">\
+                    <div class="content">\
+                        <p class="author">Nice奶思</p>\
+                        <div class="msg lgface">'+ _img + '</div>\
+                </div>\
+                <a class="avatar" href="微聊(好友主页).html"><img src="img/uimg/u__chat-img14.jpg" /></a>\
+            </li>'
+            ].join("");
+            $chatMsgList.append(_tpl);
+
+            wchat_ToBottom();
+        }
+    });
 </script>
+
