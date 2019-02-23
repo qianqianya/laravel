@@ -26,7 +26,7 @@
                 <li class="me"  style="height: 200px;float: right;">
                     <div><img style="width:50px;height:50px;" src="{{env('IMG_URL')}}form_test/caVgMRjKMTiiazP.jpg" alt=""></div>
                     <div class="content">
-                        <p class="author">Nice奶思</p>
+                        <p class="author">{{$msg->nickname}}</p>
                         <div class="msg" >
                             么么哒，马总发个红包呗！
                         </div>
@@ -45,7 +45,7 @@
                 <li class="me"  style="height: 200px;float: right;">
                     <div><img style="width:50px;height:50px;" src="{{env('IMG_URL')}}form_test/caVgMRjKMTiiazP.jpg" alt=""></div>
                     <div class="content">
-                        <p class="author">Nice奶思</p>
+                        <p class="author">{{$msg->nickname}}</p>
                         <div class="msg" >
                             么么哒，马总发个红包呗！
                         </div>
