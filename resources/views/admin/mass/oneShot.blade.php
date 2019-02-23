@@ -126,7 +126,7 @@
         if (that.hasClass("picture")) {
             console.log("图片长按");
             menuTpl = " <div class='menu menu-picture'><a href='#'><i class='ico i1'></i>复制</a><a href='#'><i class='ico i2'></i>收藏</a><ahref='#'><i class='ico i3'></i>另存为</a>" + _revoke + "<a href='#'><i class='ico i5'></i>删除</a></div>";
-        }elseif(that.hasClass("video"))
+        }else if(that.hasClass("video"))
         {
             console.log("视频长按");
             menuTpl = " <div class='menu menu-video'><a href='#'><i class='ico i3'></i>另存为</a>" + _revoke + "<a href='#'><i class='ico i5'></i>删除</a> </div>";
