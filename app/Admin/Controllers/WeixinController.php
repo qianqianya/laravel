@@ -224,4 +224,14 @@ class WeixinController extends Controller
         echo '<pre>';print_r($list);echo '</pre>';
         echo '<pre>';print_r($_POST);echo '</pre>';
     }
+
+    public function oneShot(Content $content)
+    {
+        //return view('admin.weixin.send_msg');
+
+        return $content
+            ->header('单发')
+            ->description('单发消息')
+            ->body(view('admin.mass.oneShot'));
+    }
 }
