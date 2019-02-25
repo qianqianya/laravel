@@ -253,11 +253,11 @@ class WeixinController extends Controller
     {
         $openid = $_GET['openid'];  //用户openid
         $pos = $_GET['pos'];//上次聊天位置
-        var_dump($openid);exit;
-        var_dump($pos);exit;
+        //var_dump($openid);exit;
+        //var_dump($pos);exit;
         $msg = WeixinUserinfo::where(['openid'=>$openid])->where('id','>',$pos)->first();
         $res = WeixinUser::where(['openid'=>$openid])->first();
-        $msg['ctime']=date('Y-m-d H:i:s');
+        $msg['add_time']=date('Y-m-d H:i:s');
         if($msg){
             $response = [
                 'errno' => 0,

@@ -11,10 +11,10 @@ setInterval(function(){
         success :   function(d){
             if(d.errno==0){     //服务器响应正常
                 //数据填充
-                var msg_str="<p class='time' align='center'><span>"+d.data.ctime+
+                var msg_str="<p class='time' align='center'><span>"+d.data.add_time+
                     "</span></p><li class='others' style='width:2000px;height: 100px;' align='left'> <div><img style='width:50px;height:50px;' src='"+ d.res.headimgurl +
                     "' alt=''></div><div class='content'><p class='author'>" + d.res.nickname+
-                    "</p><div class='msg'>" + d.data.text+
+                    "</p><div class='msg'>" + d.data.userinfo+
                     "</div></div></li>";
 
                 $("#J__chatMsgList").append(msg_str);
