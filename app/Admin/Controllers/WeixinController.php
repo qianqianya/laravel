@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Model\WeixinUser;
+use App\Model\WeixinUserinfo;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -87,7 +88,9 @@ class WeixinController extends Controller
 
         $grid->id('Id');
         $grid->uid('Uid');
-        $grid->openid('Openid');
+        $grid->openid('Openid')->display(function($openid){
+            return '<a href="/admin/information?openid='.$openid.'">'.$openid.'</a>';
+        });
         $grid->add_time('Add time')->display(function($time){
             return date('Y-m-d H:s:i',$time);
         });;
@@ -225,11 +228,90 @@ class WeixinController extends Controller
         echo '<pre>';print_r($_POST);echo '</pre>';
     }
 
-    public function oneShot(Content $content)
+    /**
+     * 私聊
+     */
+    public function information(Content $content)
     {
+        $openid = $_GET['openid'];
+        //echo $openid;exit;
+        //$msg=WeixinUser::where(['id'=>$id])->first();
+        $data=[
+            //'msg'=>$msg
+            'openid'=>$openid
+        ];
         return $content
-            ->header('单发')
-            ->description('单发消息')
-            ->body(view('admin.mass.oneShot'));
+            ->header('微信')
+            ->description('私聊')
+            ->body(view('admin.mass.oneShot',$data));
     }
+
+    /**
+     * 微信客服聊天
+     */
+    public function getChatMsg()
+    {
+        $openid = $_GET['openid'];  //用户openid
+        $pos = $_GET['pos'];//上次聊天位置
+        var_dump($openid);exit;
+        var_dump($pos);exit;
+        $msg = WeixinUserinfo::where(['openid'=>$openid])->where('id','>',$pos)->first();
+        $res = WeixinUser::where(['openid'=>$openid])->first();
+        $msg['ctime']=date('Y-m-d H:i:s');
+        if($msg){
+            $response = [
+                'errno' => 0,
+                'data'  =>$msg->toArray(),
+                'res'=>$res->toArray()
+            ];
+
+        }else{
+            $response = [
+                'errno' => 50001,
+                'msg'   => '服务器异常，请联系管理员'
+            ];
+        }
+
+        die( json_encode($response));
+
+    }
+
+    public function textMsg(){
+        $openid = $_GET['openid'];
+        $text = $_GET['text'];
+        $access_token = $this->getWXAccessToken();
+        $url = 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$access_token;
+        //var_dump($url);exit;
+        $client = new GuzzleHttp\Client(['base_url' => $url]);
+        $param = [
+            "touser"=>$openid,
+            "msgtype"=>"text",
+            "text"=>
+                [
+                    "content"=>$text
+                ]
+        ];
+        ///var_dump($param);exit;
+        $r = $client->Request('POST', $url, [
+            'body' => json_encode($param, JSON_UNESCAPED_UNICODE)
+        ]);
+        //var_dump($r);exit;
+        $response_arr = json_decode($r->getBody(), true);
+        //echo '<pre>';
+        //print_r($response_arr);
+        // echo '</pre>';
+
+        if ($response_arr['errcode'] == 0) {
+            $response = [
+                'errno' => 0
+            ];
+        } else {
+            $response = [
+                'errno' => 50001,
+                'msg'   => '服务器异常，请联系管理员'
+            ];
+
+        }
+    }
+
 }

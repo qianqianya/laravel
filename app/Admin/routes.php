@@ -25,7 +25,10 @@ Route::group([
     $router->get('/wxsendmsg','WeixinController@sendMsgView');      //
     $router->post('/wxsendmsg','WeixinController@sendMsg');
 
-    $router->get('/massge','WeixinController@oneShot');
+    $router->get('/information','WeixinController@information');      //
+    $router->get('/chat','WeixinController@getChatMsg');      //
+    $router->get('/textMsg','WeixinController@textMsg');      //
+
 
 
 });
