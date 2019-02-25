@@ -27,8 +27,8 @@
     <form action="" class="form-inline">
         <input type="hidden" value="{{$openid}}" id="openid">
         <input type="hidden" value="1" id="msg_pos">
-        <textarea name="" id="send_msg" cols="50" rows="5"></textarea><br>
-        <button class="btn btn-info" id="send_msg_btn" style="margin-left:280px;">发送</button>
+        <textarea name="" id="send_msg" cols="50" rows="5" style="margin-left:1000px;"></textarea><br>
+        <button class="btn btn-info" id="send_msg_btn" style="margin-left:1280px;">发送</button>
     </form>
 
     <!-- 表情、选择模块 -->
