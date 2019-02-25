@@ -7,7 +7,7 @@
 </head>
 <body>
 <!-- //微聊消息上墙面板 -->
-<div class="wc__chatMsg-panel flex1" style="border: 1px red solid;">
+<div class="wc__chatMsg-panel flex1" >
     <div class="wc__slimscroll2">
         <div class="chatMsg-cnt">
             <ul class="clearfix" id="J__chatMsgList">
@@ -17,7 +17,7 @@
             </ul>
         </div>
     </div>
-</div>
+</div><br>
 
 <!-- //微聊底部功能面板 -->
 <div class="wc__footTool-panel" align="bottom">
@@ -27,8 +27,8 @@
     <form action="" class="form-inline">
         <input type="hidden" value="{{$openid}}" id="openid">
         <input type="hidden" value="1" id="msg_pos">
-        <textarea name="" id="send_msg" cols="100" rows="5"></textarea>
-        <button class="btn btn-info" id="send_msg_btn">Send</button>
+        <textarea name="" id="send_msg" cols="50" rows="5"></textarea><br>
+        <button class="btn btn-info" id="send_msg_btn" style="margin-left:280px;">发送</button>
     </form>
 
     <!-- 表情、选择模块 -->
