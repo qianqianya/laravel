@@ -256,6 +256,7 @@ class WeixinController extends Controller
         //var_dump($openid);exit;
         //var_dump($pos);exit;
         $msg = WeixinUserinfo::where(['openid'=>$openid])->where('id','>',$pos)->first();
+        //var_dump($msg);exit;
         $res = WeixinUser::where(['openid'=>$openid])->first();
         $msg['add_time']=date('Y-m-d H:i:s');
         if($msg){

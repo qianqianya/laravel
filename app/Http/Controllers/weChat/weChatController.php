@@ -59,8 +59,8 @@ class weChatController extends Controller
                 echo $xml_response;
                 $data=[
                     'openid'=>$openid,
-                    'text'=>$msg,
-                    'ctime'=>time()
+                    'userinfo'=>$msg,
+                    'add_time'=>time()
                 ];
                 WeixinUserinfo::insertgetId($data);
             } elseif ($xml->MsgType == 'image') {       //用户发送图片信息
