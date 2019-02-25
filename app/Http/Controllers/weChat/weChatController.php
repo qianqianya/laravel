@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\weChat;
 
 use App\Model\WeixinUser;
+use App\Model\WeixinUserinfo;
 use App\Model\WeixinMedia;
 use App\Model\Wxmaterial;
 use Illuminate\Http\Request;
@@ -56,6 +57,12 @@ class weChatController extends Controller
                 $msg = $xml->Content;
                 $xml_response = '<xml><ToUserName><![CDATA[' . $openid . ']]></ToUserName><FromUserName><![CDATA[' . $xml->ToUserName . ']]></FromUserName><CreateTime>' . time() . '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . $msg . 'aaaa' . ']]></Content></xml>';
                 echo $xml_response;
+                $data=[
+                    'openid'=>$openid,
+                    'text'=>$msg,
+                    'ctime'=>time()
+                ];
+                WeixinUserinfo::insertgetId($data);
             } elseif ($xml->MsgType == 'image') {       //用户发送图片信息
                 //视业务需求是否需要下载保存图片
                 if (1) {  //下载图片素材
