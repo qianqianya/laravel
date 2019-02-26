@@ -19,7 +19,7 @@
                 <td>{{$v->goods_store}}</td>
                 <td>{{$v->goods_price / 100}}</td>
                 <td>{{date("Y-m-d H:i:s",$v->goods_ctime)}}</td>
-                <td><li class="btn"><a href="">加入购物车</a></li></td>
+                <td><li class="btn"><a href="/goodsDetails/{{$v['goods_id']}}">加入购物车</a></li></td>
             </tr>
         @endforeach
     </table>
