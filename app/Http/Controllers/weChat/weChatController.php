@@ -478,7 +478,7 @@ class weChatController extends Controller
 
     public function formTest(Request $request)
     {
-       // echo '<pre>';print_r($_POST);echo '</pre>';echo '<hr>';
+        // echo '<pre>';print_r($_POST);echo '</pre>';echo '<hr>';
         //echo '<pre>';print_r($_FILES);echo '</pre>';echo '<hr>';
         //exit;
         //保存文件
@@ -486,30 +486,34 @@ class weChatController extends Controller
         //echo '<pre>';print_r($img_file);echo '</pre>';echo '<hr>';exit;
 
         $img_origin_name = $img_file->getClientOriginalName();
-        echo 'originName: '.$img_origin_name;echo '</br>';
+        echo 'originName: ' . $img_origin_name;
+        echo '</br>';
         $file_ext = $img_file->getClientOriginalExtension();          //获取文件扩展名
-        echo 'ext: '.$file_ext;echo '</br>';
+        echo 'ext: ' . $file_ext;
+        echo '</br>';
 
         //重命名
-        $new_file_name = str_random(15). '.'.$file_ext;        //文件保存路径
+        $new_file_name = str_random(15) . '.' . $file_ext;        //文件保存路径
 
 
         //保存文件
 
-        echo 'new_file_name: '.$new_file_name;echo '</br>';
+        echo 'new_file_name: ' . $new_file_name;
+        echo '</br>';
 
-        $save_file_path = $request->media->storeAs('form_test',$new_file_name);       //返回保存成功之后的文件路径
+        $save_file_path = $request->media->storeAs('form_test', $new_file_name);       //返回保存成功之后的文件路径
 
-        echo 'save_file_path: '.$save_file_path;echo '<hr>';
-        $data=[
-            "url"=>$save_file_path,
-            "add_time"=>time()
+        echo 'save_file_path: ' . $save_file_path;
+        echo '<hr>';
+        $data = [
+            "url" => $save_file_path,
+            "add_time" => time()
         ];
         $id = Wxmaterial::insertGetId($data);
-        if($id){
-            echo  '添加成功';
-        }else{
-            echo  '添加失败';
+        if ($id) {
+            echo '添加成功';
+        } else {
+            echo '添加失败';
         }
 
         //上传至微信永久素材
