@@ -171,7 +171,7 @@ class AlipayController extends Controller
     /**
      * 同步
      */
-    public function aliReturn()
+    public function sync()
     {
         header('Refresh:2;url=/orderList');
         echo "订单： ".$_GET['out_trade_no'] . ' 支付成功，正在跳转';
@@ -181,7 +181,7 @@ class AlipayController extends Controller
     /**
      * 支付宝异步通知
      */
-    public function aliNotify()
+    public function async()
     {
         $data = json_encode($_POST);
         $log_str = '>>>> ' . date('Y-m-d H:i:s') . $data . "<<<<\n\n";
@@ -220,6 +220,18 @@ class AlipayController extends Controller
 
         echo 'success';
     }
+    /**
+     * 处理订单逻辑 更新订单 支付状态 更新订单支付金额 支付时间
+     * @param $data
+     */
+    public function dealOrder($data)
+    {
+
+
+        //加积分
+
+        //减库存
+    }
 
     //验签
     function verify($params)
@@ -248,3 +260,6 @@ class AlipayController extends Controller
 
 
 }
+
+
+
