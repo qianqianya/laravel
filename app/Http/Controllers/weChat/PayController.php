@@ -39,11 +39,12 @@ class PayController extends Controller
         $rs = $this->postXmlCurl($xml, $this->weixin_unifiedorder_url, $useCert = false, $second = 30);
 
         $data = simplexml_load_string($rs);
-        echo 'code_url: ' . $data->code_url;
+        //echo 'code_url: ' . $data->code_url;
         include 'phpqrcode/phpqrcode.php';
         $url=$data->code_url;
         $file_name=false;
-        \QRcode::png($url,$file_name,'H','5','1');die;
+        \QRcode::png($url,$file_name,'H','5','1');
+        return view('pay.payTest',['file_name'=>$file_name]);
 
     }
 
