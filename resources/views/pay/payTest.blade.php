@@ -12,7 +12,7 @@
         type    :   'post',
         dataType:   'json',
         success :   function(msg) {
-            if(msg){
+            if(msg.status==1000){
                 window.location.href='支付成功';
             }else{
                 window.location.href='/支付失败请重新支付';

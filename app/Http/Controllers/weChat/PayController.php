@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Weixin\WXBizDataCryptController;
 use App\Model\OrderModel;
 use QRcode;
+use GuzzleHttp;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\DB;
 
 class PayController extends Controller
 {
@@ -42,8 +45,9 @@ class PayController extends Controller
         //echo 'code_url: ' . $data->code_url;
         include 'phpqrcode/phpqrcode.php';
         $url=$data->code_url;
-        $file_name=false;
+        $file_name='qrcode/payimg.png';
         \QRcode::png($url,$file_name,'H','5','1');
+
         return view('pay.payTest',['file_name'=>$file_name]);
 
     }
@@ -138,6 +142,27 @@ class PayController extends Controller
         }
         $buff = trim($buff, "&");
         return $buff;
+    }
+    public function payselect(){
+//            echo $_GET['order_id'];die;
+        $order_id = Redis::get('order_id');
+        $res = DB::table('wx_pay')->where(['out_trade_no'=>$order_id])->first();
+        $res = json_encode($res);
+        $res = \GuzzleHttp\json_decode($res,true);
+        if($res['pay_status']==2){
+            Redis::del('order_id');
+            return json_encode(
+                ['status'=>1000,
+                    'msg'=>''
+                ]
+            );
+        }else{
+            return json_encode(
+                ['status'=>1,
+                    'msg'=>  '暂未支付'
+                ]
+            );
+        }
     }
 
 
