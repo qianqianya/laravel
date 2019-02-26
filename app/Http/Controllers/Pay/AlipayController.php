@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Pay;
 
+use App\Model\OrderModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\OrderModel;
 
 class AlipayController extends Controller
 {
 
+    //
     public $app_id;
     public $gate_way;
     public $notify_url;
@@ -16,35 +17,33 @@ class AlipayController extends Controller
     public $rsaPrivateKeyFilePath = './key/priv.key';
     public $aliPubKey = './key/ali_pub.key';
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->app_id = env('PAT_ID');
         $this->gate_way = env('PAY_WAY');
         $this->notify_url = env('NOTIFY_PAY_URL');
         $this->return_url = env('RETURN_PAY_URL');
-
-
     }
 
-    public function payList($o_id)
+    /**
+     * @param $o_id
+     */
+    public function pay($o_id)
     {
         //验证订单状态 是否已支付 是否是有效订单
         $order_info = OrderModel::where(['o_id'=>$o_id])->first()->toArray();
-
-//判断订单是否已被支付
+//var_dump($order_info);exit;
+        //判断订单是否已被支付
         if($order_info['is_pay']==1){
             header('refresh:2,url=/orderList');
             die("订单已支付，请勿重复支付");
         }
-//判断订单是否已被删除
+        //判断订单是否已被删除
         if($order_info['is_delete']==1){
             header('refresh:2,url=/orderList');
             die("订单已被删除，无法支付");
         }
 
-
-
-//业务参数
+        //业务参数
         $bizcont = [
             'subject'           => 'Lening-Order: ' .$o_id,
             'out_trade_no'      => $o_id,
@@ -53,7 +52,7 @@ class AlipayController extends Controller
 
         ];
 
-//公共参数
+        //公共参数
         $data = [
             'app_id'   => $this->app_id,
             'method'   => 'alipay.trade.wap.pay',
@@ -67,7 +66,7 @@ class AlipayController extends Controller
             'biz_content'   => json_encode($bizcont),
         ];
 
-//签名
+        //签名
         $sign = $this->rsaSign($data);
         $data['sign'] = $sign;
         $param_str = '?';
@@ -81,11 +80,14 @@ class AlipayController extends Controller
 
     }
 
+    /**
+     * @param $params
+     * @return string
+     */
     public function rsaSign($params)
     {
         return $this->sign($this->getSignContent($params));
     }
-
     protected function sign($data)
     {
 
@@ -103,7 +105,10 @@ class AlipayController extends Controller
         return $sign;
     }
 
-
+    /**
+     * @param $params
+     * @return string
+     */
     public function getSignContent($params)
     {
         ksort($params);
@@ -127,6 +132,10 @@ class AlipayController extends Controller
         return $stringToBeSigned;
     }
 
+    /**
+     * @param $value
+     * @return bool
+     */
     protected function checkEmpty($value)
     {
         if (!isset($value))
@@ -138,7 +147,6 @@ class AlipayController extends Controller
 
         return false;
     }
-
 
     /**
      * 转换字符集编码
@@ -163,65 +171,54 @@ class AlipayController extends Controller
     /**
      * 同步
      */
-     public function sync()
-     {
-         header('Refresh:2;url=/orderList');
-         echo "订单： ".$_GET['out_trade_no'] . ' 支付成功，正在跳转';
+    public function aliReturn()
+    {
+        header('Refresh:2;url=/orderList');
+        echo "订单： ".$_GET['out_trade_no'] . ' 支付成功，正在跳转';
 
-     }
+    }
 
     /**
      * 支付宝异步通知
      */
-    public function async()
+    public function aliNotify()
     {
-
-       $data = json_encode($_POST);
-    $log_str = '>>>> ' . date('Y-m-d H:i:s') . $data . "<<<<\n\n";
+        $data = json_encode($_POST);
+        $log_str = '>>>> ' . date('Y-m-d H:i:s') . $data . "<<<<\n\n";
         //记录日志
-      file_put_contents('logs/alipay.log', $log_str, FILE_APPEND);
+        file_put_contents('logs/alipay.log', $log_str, FILE_APPEND);
         //验签
         $res = $this->verify($_POST);
+
         $log_str = '>>>> ' . date('Y-m-d H:i:s');
-        if($res === false){
+        if ($res === false) {
             //记录日志 验签失败
             $log_str .= " Sign Failed!<<<<< \n\n";
-            file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
-        }else{
+            file_put_contents('logs/alipay.log', $log_str, FILE_APPEND);
+        } else {
             $log_str .= " Sign OK!<<<<< \n\n";
-            file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
+            file_put_contents('logs/alipay.log', $log_str, FILE_APPEND);
         }
 
         //验证订单交易状态
         if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
             //更新订单状态
-            $o_id = $_POST['out_trade_no'];     //商户订单号
+            $oid = $_POST['out_trade_no'];     //商户订单号
             $info = [
                 'is_pay' => 1,       //支付状态  0未支付 1已支付
                 'pay_amount' => $_POST['total_amount'] * 100,    //支付金额
-                'pay_ctime' => strtotime($_POST['gmt_payment']), //支付时间
-                'o_name' => $_POST['trade_no'],      //支付宝订单号
+                'pay_time' => strtotime($_POST['gmt_payment']), //支付时间
+                'plat_oid' => $_POST['trade_no'],      //支付宝订单号
                 'plat' => 1,      //平台编号 1支付宝 2微信
+                'status'=>2
             ];
 
-            OrderModel::where(['o_id' => $o_id])->update($info);
+            OrderModel::where(['oid' => $oid])->update($info);
         }
         //处理订单逻辑
         $this->dealOrder($_POST);
 
         echo 'success';
-    }
-    /**
-     * 处理订单逻辑 更新订单 支付状态 更新订单支付金额 支付时间
-     * @param $data
-     */
-    public function dealOrder($data)
-    {
-
-
-        //加积分
-
-        //减库存
     }
 
     //验签
@@ -251,5 +248,3 @@ class AlipayController extends Controller
 
 
 }
-
-
