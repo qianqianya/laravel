@@ -121,6 +121,7 @@ Route::post('/form/test','weChat\weChatController@formTest');     //表单测试
 //微信支付测试
 Route::get('/payTest','weChat\PayController@test');
 Route::any('/payShow','weChat\PayController@payselect');
+Route::any('/paysuccess','weChat\PayController@paysuccess');
 
 //微信支付通知回调
 Route::post('/payNotice','weChat\PayController@notice');

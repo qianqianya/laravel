@@ -168,6 +168,10 @@ class PayController extends Controller
         }
     }
 
+    public function paysuccess(){
+       return view('pay.payseccess');
+    }
+
 
     /**
      * 微信支付回调
