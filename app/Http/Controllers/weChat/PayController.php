@@ -152,7 +152,7 @@ class PayController extends Controller
     public function payselect(){
           // echo $_GET['order_id'];die;
         $order_id = Redis::get('order_id');
-        $res = OrderModel::where(['out_trade_no'=>$order_id])->first();
+        $res = OrderModel::where(['o_name'=>$order_id])->first();
 
         $res = json_encode($res);
         $res = \GuzzleHttp\json_decode($res,true);
