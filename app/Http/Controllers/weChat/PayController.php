@@ -198,12 +198,11 @@ class PayController extends Controller
 
             if ($sign) {       //签名验证成功
                 //TODO 逻辑处理  订单状态更新
-                WeixinPay::where(['o_name'=>$order_id])->update(['status'=>2]);
+                OrderModel::where(['o_name'=>$order_id])->update(['status'=>2]);
 
             } else {
                 //TODO 验签失败
                 echo '验签失败，IP: ' . $_SERVER['REMOTE_ADDR'];
-                WeixinPay::where(['o_name'=>$order_id])->update(['status'=>2]);
                 // TODO 记录日志
             }
 
