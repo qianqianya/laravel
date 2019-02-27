@@ -191,13 +191,12 @@ class PayController extends Controller
         file_put_contents('logs/wx_pay_notice.log', $log_str, FILE_APPEND);
 
         $xml = simplexml_load_string($data);
+            //签名验证成功
 
-        if ($xml->result_code == 'SUCCESS' && $xml->return_code == 'SUCCESS') {      //微信支付成功回调
-            //验证签名
-            $sign = true;
-
-            if ($sign) {       //签名验证成功
-                //TODO 逻辑处理  订单状态更新
+            if ($xml->result_code == 'SUCCESS' && $xml->return_code == 'SUCCESS') {      //微信支付成功回调
+                $sign = $this->SignTest($data);
+                if($sign == $xml->sign){
+                    //TODO 逻辑处理  订单状态更新
                 OrderModel::where(['o_name'=>$order_id])->update(['status'=>2]);
 
             } else {
@@ -212,10 +211,19 @@ class PayController extends Controller
         echo $response;
 
     }
-    public function sign(){
+
+    /**
+     * 验签
+     */
+    public function SignTest($xml){
+        //$data = json_encode($xml,true);
+        $data = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
         $this->values = [];
-        $this->values = $order_info;
-        $this->SetSign();
+        $this->values = $data;
+        $sign = $this->SetSign();
+        return $sign;
+        //return $buff;
     }
+
 
 }

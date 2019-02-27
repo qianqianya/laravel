@@ -16,7 +16,7 @@
             dataType:   'json',
             success :   function(msg) {
                 if(msg.status==1000){
-                    window.location.href='/payList';
+                    window.location.href='/orderList';
                 }else{
                     console.log(1);
                 }
