@@ -40,6 +40,9 @@ class PayController extends Controller
         $order_data = $order_info;
         $order_data['pay_status']=1;
 
+        var_dump($order_data);die;
+
+
 
         WeixinPay::insertGetId($order_data);
         Redis::set('order_id',$order_id);
