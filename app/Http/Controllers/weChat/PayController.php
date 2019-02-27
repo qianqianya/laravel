@@ -157,13 +157,14 @@ class PayController extends Controller
           // echo $_GET['order_id'];die;
         $order_id = Redis::get('order_id');
         $res = WeixinPay::where(['out_trade_no'=>$order_id])->first();
+
         $res = json_encode($res);
         $res = \GuzzleHttp\json_decode($res,true);
         if($res['pay_status']==2){
             Redis::del('order_id');
             return json_encode(
                 ['status'=>1000,
-                    'msg'=>''
+                    'msg'=>'支付成功'
                 ]
             );
         }else{
@@ -185,6 +186,8 @@ class PayController extends Controller
      */
     public function notice()
     {
+        $order_id = Redis::get('order_id');
+
         $data = file_get_contents("php://input");
 
         //记录日志
@@ -199,6 +202,7 @@ class PayController extends Controller
 
             if ($sign) {       //签名验证成功
                 //TODO 逻辑处理  订单状态更新
+                WeixinPay::where(['out_trade_no'=>$order_id])->update(['pay_status']==2);
 
             } else {
                 //TODO 验签失败
