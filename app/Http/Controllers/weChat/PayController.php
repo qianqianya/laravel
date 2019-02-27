@@ -154,7 +154,7 @@ class PayController extends Controller
 
         $res = json_encode($res);
         $res = \GuzzleHttp\json_decode($res,true);
-        if($res['pay_status']==2){
+        if($res['status']==2){
             Redis::del('order_id');
             return json_encode(
                 ['status'=>1000,
@@ -196,7 +196,7 @@ class PayController extends Controller
 
             if ($sign) {       //签名验证成功
                 //TODO 逻辑处理  订单状态更新
-                WeixinPay::where(['out_trade_no'=>$order_id])->update(['pay_status'=>2]);
+                WeixinPay::where(['o_name'=>$order_id])->update(['status'=>2]);
 
             } else {
                 //TODO 验签失败
