@@ -36,7 +36,12 @@ class PayController extends Controller
             'notify_url' => $this->weixin_notify_url,        //通知回调地址
             'trade_type' => 'NATIVE'                         // 交易类型
         ];
-        WeixinPay::insertGetId($order_info);
+
+        $order_data = $order_info;
+        $order_data['pay_status']=1;
+
+
+        WeixinPay::insertGetId($order_data);
         Redis::set('order_id',$order_id);
         $this->values = [];
         $this->values = $order_info;
