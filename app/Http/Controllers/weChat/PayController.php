@@ -10,7 +10,6 @@ use App\Model\WeixinPay;
 use QRcode;
 use GuzzleHttp;
 use Illuminate\Support\Facades\Redis;
-use Illuminate\Support\Facades\DB;
 
 class PayController extends Controller
 {
@@ -22,7 +21,7 @@ class PayController extends Controller
     {
         //
         $total_fee = 1;
-        $order_id = time().rand(1000,9999);
+        $order_id = OrderModel::generateOrderSN();
 
         $order_info = [
             'appid' => env('WEIXIN_APPID_0'),//微信支付绑定的服务好的appid
@@ -176,6 +175,7 @@ class PayController extends Controller
     }
 
     public function paysuccess(){
+        var_dump($order_id = Redis::get('order_id'));die;
        return view('pay.paysuccess');
     }
 
