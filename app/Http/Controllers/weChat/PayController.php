@@ -37,8 +37,7 @@ class PayController extends Controller
             'trade_type' => 'NATIVE'                         // 交易类型
         ];
 
-        $order_data = $order_info;
-        $order_data['pay_status']=1;
+        $order_data = $order_info['pay_status']=1;
 
 //        var_dump($order_data);die;
 

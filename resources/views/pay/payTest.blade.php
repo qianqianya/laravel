@@ -7,7 +7,7 @@
     function check(){
         $.ajax({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             url     :   '/payShow',
             type    :   'get',
