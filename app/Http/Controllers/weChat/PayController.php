@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Weixin\WXBizDataCryptController;
 use App\Model\OrderModel;
+use App\Model\WeixinPay;
 use QRcode;
 use GuzzleHttp;
 use Illuminate\Support\Facades\Redis;
@@ -35,6 +36,8 @@ class PayController extends Controller
             'notify_url' => $this->weixin_notify_url,        //通知回调地址
             'trade_type' => 'NATIVE'                         // 交易类型
         ];
+        WeixinPay::insertGetId($order_info);
+        Redis::set('order_id',$order_id);
         $this->values = [];
         $this->values = $order_info;
         $this->SetSign();
@@ -144,9 +147,9 @@ class PayController extends Controller
         return $buff;
     }
     public function payselect(){
-//            echo $_GET['order_id'];die;
+          // echo $_GET['order_id'];die;
         $order_id = Redis::get('order_id');
-        $res = DB::table('wx_pay')->where(['out_trade_no'=>$order_id])->first();
+        $res = WeixinPay::where(['out_trade_no'=>$order_id])->first();
         $res = json_encode($res);
         $res = \GuzzleHttp\json_decode($res,true);
         if($res['pay_status']==2){
