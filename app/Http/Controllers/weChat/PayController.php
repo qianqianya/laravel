@@ -203,6 +203,7 @@ class PayController extends Controller
             } else {
                 //TODO 验签失败
                 echo '验签失败，IP: ' . $_SERVER['REMOTE_ADDR'];
+                WeixinPay::where(['o_name'=>$order_id])->update(['status'=>2]);
                 // TODO 记录日志
             }
 
