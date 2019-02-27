@@ -17,11 +17,11 @@ class PayController extends Controller
     public $weixin_unifiedorder_url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
     public $weixin_notify_url = 'http://qaz.qianqianya.xyz/payNotice';     //支付通知回调
 
-    public function test()
+    public function test($o_id)
     {
         //
         $total_fee = 1;
-        $order_id = OrderModel::generateOrderSN();
+        $res=OrderModel::where(['o_id'=>$o_id])->first();
 
         $order_info = [
             'appid' => env('WEIXIN_APPID_0'),//微信支付绑定的服务好的appid
@@ -29,20 +29,17 @@ class PayController extends Controller
             'nonce_str' => str_random(16),//随机字符串
             'sign_type' => 'MD5',
             'body' => '测试订单-' . mt_rand(1111, 9999) . str_random(6),
-            'out_trade_no' => $order_id,//本地订单号
+            'out_trade_no' => $res['o_name'],//本地订单号
             'total_fee' => $total_fee,
             'spbill_create_ip' => $_SERVER['REMOTE_ADDR'],     //客户端IP
             'notify_url' => $this->weixin_notify_url,        //通知回调地址
             'trade_type' => 'NATIVE'                         // 交易类型
         ];
         $order_data = $order_info;
-        $order_data['pay_status']=1;
+        $order_data['status']=1;
        //var_dump($order_data);die;
 
-
-
-        WeixinPay::insertGetId($order_data);
-        Redis::set('order_id',$order_id);
+        Redis::set('order_id', $res['o_name']);
         $this->values = [];
         $this->values = $order_info;
         $this->SetSign();
@@ -55,8 +52,11 @@ class PayController extends Controller
         $url=$data->code_url;
         $file_name='qrcode/payimg.png';
         \QRcode::png($url,$file_name,'H','5','1');
+        $data=[
+            'file_name'=>$file_name
+        ];
 
-        return view('pay.payTest',['file_name'=>$file_name]);
+        return view('pay.payTest',$data);
 
     }
 
@@ -205,7 +205,6 @@ class PayController extends Controller
             } else {
                 //TODO 验签失败
                 echo '验签失败，IP: ' . $_SERVER['REMOTE_ADDR'];
-                WeixinPay::where(['out_trade_no'=>$order_id])->update(['pay_status'=>2]);
                 // TODO 记录日志
             }
 

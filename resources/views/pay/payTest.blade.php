@@ -1,3 +1,6 @@
+@extends('layout.goods')
+@section('title') {{$title}}    @endsection
+@section('content')
 <img src="{{$file_name}}">
 {{csrf_field()}}
 
@@ -7,7 +10,7 @@
     function check(){
         $.ajax({
             headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             url     :   '/payShow',
             type    :   'get',
@@ -26,3 +29,5 @@
 
 
 </script>
+
+@endsection
