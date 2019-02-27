@@ -1,6 +1,6 @@
 @extends('layout.goods')
 @section('content')
-<img src="http://qaz.qianqianya.xyz/{{$file_name}}">
+<img src="{{$file_name}}">
 {{csrf_field()}}
 
 <script src="{{URL::asset('/js/jquery-1.12.4.min.js')}}"></script>

@@ -21,6 +21,7 @@ class PayController extends Controller
     {
         //
         $total_fee = 1;
+
         $res=OrderModel::where(['o_id'=>$o_id])->first();
 
         $order_info = [
@@ -29,7 +30,7 @@ class PayController extends Controller
             'nonce_str' => str_random(16),//随机字符串
             'sign_type' => 'MD5',
             'body' => '测试订单-' . mt_rand(1111, 9999) . str_random(6),
-            'out_trade_no' => $res['o_name'],//本地订单号
+            'out_trade_no' => $res['o_name'], //本地订单号
             'total_fee' => $total_fee,
             'spbill_create_ip' => $_SERVER['REMOTE_ADDR'],     //客户端IP
             'notify_url' => $this->weixin_notify_url,        //通知回调地址
@@ -39,7 +40,7 @@ class PayController extends Controller
         $order_data['status']=1;
        //var_dump($order_data);die;
 
-        Redis::set('order_id', $res['o_name']);
+        Redis::set('order_id',$res['o_name']);
         $this->values = [];
         $this->values = $order_info;
         $this->SetSign();
@@ -47,13 +48,12 @@ class PayController extends Controller
         $rs = $this->postXmlCurl($xml, $this->weixin_unifiedorder_url, $useCert = false, $second = 30);
 
         $data = simplexml_load_string($rs);
-        var_dump($data);exit;
         //echo 'code_url: ' . $data->code_url;
         include 'phpqrcode/phpqrcode.php';
         $url=$data->code_url;
-
-        $file_name='qrcode/payimg.png';
+        $file_name='qrcode/'.$res['o_name'].'.png';
         \QRcode::png($url,$file_name,'H','5','1');
+
         return view('pay.payTest',['file_name'=>$file_name]);
 
     }
@@ -152,7 +152,7 @@ class PayController extends Controller
     public function payselect(){
           // echo $_GET['order_id'];die;
         $order_id = Redis::get('order_id');
-        $res = WeixinPay::where(['out_trade_no'=>$order_id])->first();
+        $res = OrderModel::where(['out_trade_no'=>$order_id])->first();
 
         $res = json_encode($res);
         $res = \GuzzleHttp\json_decode($res,true);
@@ -172,6 +172,11 @@ class PayController extends Controller
         }
     }
 
+    public function paysuccess(){
+       return view('pay.paysuccess');
+    }
+
+
     /**
      * 微信支付回调
      */
@@ -186,19 +191,18 @@ class PayController extends Controller
         file_put_contents('logs/wx_pay_notice.log', $log_str, FILE_APPEND);
 
         $xml = simplexml_load_string($data);
-        $this->touser($xml);
+
         if ($xml->result_code == 'SUCCESS' && $xml->return_code == 'SUCCESS') {      //微信支付成功回调
             //验证签名
             $sign = true;
 
             if ($sign) {       //签名验证成功
                 //TODO 逻辑处理  订单状态更新
-                OrderModel::where(['o_name'=>$order_id])->update(['status'=>2]);
+                WeixinPay::where(['o_name'=>$order_id])->update(['status'=>2]);
 
             } else {
                 //TODO 验签失败
                 echo '验签失败，IP: ' . $_SERVER['REMOTE_ADDR'];
-                OrderModel::where(['o_name'=>$order_id])->update(['status'=>2]);
                 // TODO 记录日志
             }
 
@@ -208,15 +212,10 @@ class PayController extends Controller
         echo $response;
 
     }
-    public function touser($xml){
+    public function sign(){
         $this->values = [];
-        $this->values = $xml;
-        $res=$this->SetSign();
-        if($res==$xml['sign']){
-            echo '成功';
-        }else{
-            echo '失败';
-        }
+        $this->values = $order_info;
+        $this->SetSign();
     }
 
 }
