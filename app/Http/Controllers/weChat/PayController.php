@@ -38,7 +38,7 @@ class PayController extends Controller
         ];
 
         $order_data = $order_info;
-        $order_data=$order_data['pay_status']=1;
+        $order_data['pay_status']=1;
        var_dump($order_data);die;
 
 
