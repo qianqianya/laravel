@@ -37,8 +37,8 @@ class PayController extends Controller
             'trade_type' => 'NATIVE'                         // 交易类型
         ];
 
-        $order_data = $order_info['pay_status']=1;
-
+        $order_data = $order_info;
+        $order_data=$order_data['pay_status']=1;
 //        var_dump($order_data);die;
 
 
@@ -202,7 +202,7 @@ class PayController extends Controller
 
             if ($sign) {       //签名验证成功
                 //TODO 逻辑处理  订单状态更新
-                WeixinPay::where(['out_trade_no'=>$order_id])->update(['pay_status']==2);
+                WeixinPay::where(['out_trade_no'=>$order_id])->update(['pay_status'=>2]);
 
             } else {
                 //TODO 验签失败
