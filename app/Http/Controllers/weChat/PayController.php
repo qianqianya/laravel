@@ -170,11 +170,6 @@ class PayController extends Controller
         }
     }
 
-    public function paysuccess(){
-       return view('pay.paysuccess');
-    }
-
-
     /**
      * 微信支付回调
      */
@@ -189,18 +184,19 @@ class PayController extends Controller
         file_put_contents('logs/wx_pay_notice.log', $log_str, FILE_APPEND);
 
         $xml = simplexml_load_string($data);
-
+        $this->touser($xml);
         if ($xml->result_code == 'SUCCESS' && $xml->return_code == 'SUCCESS') {      //微信支付成功回调
             //验证签名
             $sign = true;
 
             if ($sign) {       //签名验证成功
                 //TODO 逻辑处理  订单状态更新
-                WeixinPay::where(['o_name'=>$order_id])->update(['status'=>2]);
+                OrderModel::where(['o_name'=>$order_id])->update(['status'=>2]);
 
             } else {
                 //TODO 验签失败
                 echo '验签失败，IP: ' . $_SERVER['REMOTE_ADDR'];
+                OrderModel::where(['o_name'=>$order_id])->update(['status'=>2]);
                 // TODO 记录日志
             }
 
@@ -209,6 +205,16 @@ class PayController extends Controller
         $response = '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';
         echo $response;
 
+    }
+    public function touser($xml){
+        $this->values = [];
+        $this->values = $xml;
+        $res=$this->SetSign();
+        if($res==$xml['sign']){
+            echo '成功';
+        }else{
+            echo '失败';
+        }
     }
 
 }
