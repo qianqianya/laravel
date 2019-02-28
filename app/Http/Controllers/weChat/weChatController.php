@@ -569,21 +569,16 @@ class weChatController extends Controller
             $data=[
                 'name'=>$name
             ];
-            UsersModel::insertGetId($data);
+            $users=UsersModel::insertGetId($data);
             //var_dump($id);
-            $data=[
+            $data1=[
                 'nickname'=>$name
             ];
             $arr=[
-                'openid' => $openid,
-                'add_time' => time(),
-                'nickname' => $user_arr['nickname'],
-                'sex' => $user_arr['sex'],
-                'headimgurl' => $user_arr['headimgurl'],
-                'subscribe_time' => time(),
+               'uid'=>$users,
                 'unionid'=>$unionid
             ];
-            UsersModel::where($data)->insertGetId($arr);
+            UsersModel::where($data1)->update($arr);
            // var_dump($r);
 
         }
