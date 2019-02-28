@@ -534,7 +534,7 @@ class weChatController extends Controller
     /**
      * 接收code
      */
-    public function wxGetcode($unionid)
+    public function wxGetcode()
     {
         $code = $_GET['code'];          // code
 
