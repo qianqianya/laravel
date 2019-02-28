@@ -6,6 +6,7 @@ use App\Model\WeixinUser;
 use App\Model\WeixinUserinfo;
 use App\Model\WeixinMedia;
 use App\Model\Wxmaterial;
+use App\Model\UsersModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
@@ -559,15 +560,30 @@ class weChatController extends Controller
         echo '<pre>';print_r($user_arr);echo '</pre>';
         //保存用户信息
         $unionid=$user_arr['unionid'];
-        $name=$user_arr['name'];
-        $u = WeixinUser::where(['unionid' => $unionid])->first();
-        var_dump($u);exit;
-       $data=[
-           'unionid'=>$unionid
-       ];
-        $id = WeixinUser::insertGetId($data);
-        var_dump($id);
+        $name=$user_arr['nickname'];
+        $res = WeixinUser::where(['unionid' => $unionid])->first();
+        //var_dump($u);exit;
+        if($res){
+            echo '登陆成功';
+        }else{
+            $data=[
+                'name'=>$name
+            ];
+            $id = UsersModel::insertGetId($data);
+            var_dump($id);
+            $arr=[
+                'openid' => $openid,
+                'add_time' => time(),
+                'nickname' => $user_arr['nickname'],
+                'sex' => $user_arr['sex'],
+                'headimgurl' => $user_arr['headimgurl'],
+                'subscribe_time' => time(),
+                'unionid'=>$unionid
+            ];
+            $r = UsersModel::insertGetId($arr);
+            var_dump($r);
 
+        }
     }
 
 }
