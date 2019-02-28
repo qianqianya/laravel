@@ -575,10 +575,15 @@ class weChatController extends Controller
                 'nickname'=>$name
             ];
             $arr=[
-               'uid'=>$users,
+                'openid' => $openid,
+                'add_time' => time(),
+                'nickname' => $user_arr['nickname'],
+                'sex' => $user_arr['sex'],
+                'headimgurl' => $user_arr['headimgurl'],
+                'subscribe_time' => time(),
                 'unionid'=>$unionid
             ];
-            WeixinUser::where($data1)->update($arr);
+            WeixinUser::where($data1)->insertGetId($arr);
            // var_dump($r);
 
         }
