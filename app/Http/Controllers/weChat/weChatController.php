@@ -578,7 +578,7 @@ class weChatController extends Controller
                'uid'=>$users,
                 'unionid'=>$unionid
             ];
-            UsersModel::where($data1)->update($arr);
+            WeixinUser::where($data1)->update($arr);
            // var_dump($r);
 
         }
