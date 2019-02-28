@@ -564,18 +564,19 @@ class weChatController extends Controller
         $res = WeixinUser::where(['unionid' => $unionid])->first();
         //var_dump($u);exit;
         if($res){
-            echo '登陆成功';
+            return '已存在';
         }else{
             $data=[
                 'u_name'=>$name
             ];
-            userModel::insertGetId($data);
+            $id=userModel::insertGetId($data);
             //var_dump($id);
             $data1=[
                 'nickname'=>$name
             ];
             $arr=[
-                'openid' => $openid,
+                'uid'=>$id,
+                'penid' => $openid,
                 'add_time' => time(),
                 'nickname' => $user_arr['nickname'],
                 'sex' => $user_arr['sex'],
@@ -583,8 +584,13 @@ class weChatController extends Controller
                 'subscribe_time' => time(),
                 'unionid'=>$unionid
             ];
-            WeixinUser::where($data1)->insertGetId($arr);
+            $res=WeixinUser::where($data1)->insertGetId($arr);
            // var_dump($r);
+            if($res){
+                return '成功';
+            }else{
+                return '失败';
+            }
 
         }
     }
