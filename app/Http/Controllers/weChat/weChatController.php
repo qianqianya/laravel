@@ -559,12 +559,6 @@ class weChatController extends Controller
         echo '<pre>';print_r($user_arr);echo '</pre>';
         //保存用户信息
        $data=[
-           'openid' => $openid,
-           'add_time' => time(),
-           'nickname' => $user_arr['nickname'],
-           'sex' => $user_arr['sex'],
-           'headimgurl' => $user_arr['headimgurl'],
-           'subscribe_time' => time(),
            'unionid'=>$unionid
        ];
         $id = WeixinUser::insertGetId($data);
