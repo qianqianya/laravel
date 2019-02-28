@@ -569,8 +569,11 @@ class weChatController extends Controller
             $data=[
                 'name'=>$name
             ];
-            $id = UsersModel::insertGetId($data);
-            var_dump($id);
+            UsersModel::insertGetId($data);
+            //var_dump($id);
+            $data=[
+                'nickname'=>$name
+            ];
             $arr=[
                 'openid' => $openid,
                 'add_time' => time(),
@@ -580,8 +583,8 @@ class weChatController extends Controller
                 'subscribe_time' => time(),
                 'unionid'=>$unionid
             ];
-            $r = UsersModel::insertGetId($arr);
-            var_dump($r);
+            UsersModel::where($data)->insertGetId($arr);
+           // var_dump($r);
 
         }
     }
