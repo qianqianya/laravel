@@ -564,33 +564,35 @@ class weChatController extends Controller
         $res = WeixinUser::where(['unionid' => $unionid])->first();
         //var_dump($u);exit;
         if($res){
-            return '登陆成功';
+            echo '登陆成功';
         }else{
             $data=[
-                'name'=>$name
+                'u_name'=>$name
             ];
             $id=userModel::insertGetId($data);
-            //var_dump($id);
-            $data1=[
-                'nickname'=>$name
-            ];
-            $arr=[
-                'uid'=>$id,
-                'openid' => $user_arr['openid'],
-                'add_time' => time(),
-                'nickname' => $name,
-                'sex' => $user_arr['sex'],
-                'headimgurl' => $user_arr['headimgurl'],
-                'subscribe_time' => time(),
-                'unionid'=>$unionid
-            ];
-            $res=WeixinUser::where($data1)->insertGetId($arr);
-           // var_dump($r);
-            if($res){
-                return '成功';
+            if($id){
+                //var_dump($id);
+                $arr=[
+                    'uid'=>$id,
+                    'openid' => $user_arr['openid'],
+                    'add_time' => time(),
+                    'nickname' => $name,
+                    'sex' => $user_arr['sex'],
+                    'headimgurl' => $user_arr['headimgurl'],
+                    'subscribe_time' => time(),
+                    'unionid'=>$unionid
+                ];
+                $res=WeixinUser::insertGetId($arr);
+                // var_dump($r);
+                if($res){
+                    echo '成功';
+                }else{
+                    echo  '失败';
+                }
             }else{
-                return '失败';
+                echo '第一条数据入库失败';
             }
+
 
         }
     }
