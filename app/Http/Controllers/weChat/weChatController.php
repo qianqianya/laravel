@@ -576,7 +576,7 @@ class weChatController extends Controller
             ];
             $arr=[
                 'uid'=>$id,
-                'penid' => $openid,
+                'openid' => $openid,
                 'add_time' => time(),
                 'nickname' => $user_arr['nickname'],
                 'sex' => $user_arr['sex'],
