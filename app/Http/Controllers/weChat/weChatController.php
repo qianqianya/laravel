@@ -526,7 +526,7 @@ class weChatController extends Controller
      * 微信登录测试
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function login()
+    public function wxlogin()
     {
         return view('weixin.login');
     }
