@@ -6,7 +6,7 @@ use App\Model\WeixinUser;
 use App\Model\WeixinUserinfo;
 use App\Model\WeixinMedia;
 use App\Model\Wxmaterial;
-use App\Model\UsersModel;
+use App\Model\userModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
@@ -567,9 +567,9 @@ class weChatController extends Controller
             echo '登陆成功';
         }else{
             $data=[
-                'name'=>$name
+                'u_name'=>$name
             ];
-            UsersModel::insertGetId($data);
+            userModel::insertGetId($data);
             //var_dump($id);
             $data1=[
                 'nickname'=>$name
