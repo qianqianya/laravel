@@ -569,7 +569,7 @@ class weChatController extends Controller
             $data=[
                 'name'=>$name
             ];
-            $users=UsersModel::insertGetId($data);
+            UsersModel::insertGetId($data);
             //var_dump($id);
             $data1=[
                 'nickname'=>$name
