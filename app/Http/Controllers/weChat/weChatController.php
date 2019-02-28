@@ -564,7 +564,7 @@ class weChatController extends Controller
         $res = WeixinUser::where(['unionid' => $unionid])->first();
         //var_dump($u);exit;
         if($res){
-            echo '登陆成功';
+            return '登陆成功';
         }else{
             $data=[
                 'u_name'=>$name
@@ -585,12 +585,12 @@ class weChatController extends Controller
                 $res=WeixinUser::insertGetId($arr);
                 // var_dump($r);
                 if($res){
-                    echo '成功';
+                    return '成功';
                 }else{
-                    echo  '失败';
+                    return  '失败';
                 }
             }else{
-                echo '第一条数据入库失败';
+                return '第一条数据入库失败';
             }
 
 
