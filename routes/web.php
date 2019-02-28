@@ -125,6 +125,13 @@ Route::any('/payShow','weChat\PayController@payselect');
 //微信支付通知回调
 Route::post('/payNotice','weChat\PayController@notice');
 
+//微信登陆
+Route::get('wxlogin','weChat\weChatController@wxlogin');
+
+//接收code
+Route::get('/wxGetcode','weChat\weChatController@wxGetcode');
+
+
 
 
 
