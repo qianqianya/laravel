@@ -548,7 +548,7 @@ class weChatController extends Controller
 
         $access_token = $token_arr['access_token'];
         $openid = $token_arr['openid'];
-        $unionid = $token_arr['unionid'];
+        //$unionid = $token_arr['unionid'];
 
         // 3 携带token  获取用户信息
         $user_info_url = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
@@ -558,6 +558,10 @@ class weChatController extends Controller
         echo '<hr>';
         echo '<pre>';print_r($user_arr);echo '</pre>';
         //保存用户信息
+        $unionid=$user_arr['unionid'];
+        $name=$user_arr['name'];
+        $u = WeixinUser::where(['unionid' => $unionid])->first();
+        var_dump($u);exit;
        $data=[
            'unionid'=>$unionid
        ];
