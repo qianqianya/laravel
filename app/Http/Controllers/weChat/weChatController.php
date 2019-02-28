@@ -556,18 +556,18 @@ class weChatController extends Controller
         $user_json = file_get_contents($user_info_url);
 
         $user_arr = json_decode($user_json,true);
-        echo '<hr>';
-        echo '<pre>';print_r($user_arr);echo '</pre>';
+        /*echo '<hr>';
+        echo '<pre>';print_r($user_arr);echo '</pre>';*/
         //保存用户信息
         $unionid=$user_arr['unionid'];
         $name=$user_arr['nickname'];
         $res = WeixinUser::where(['unionid' => $unionid])->first();
         //var_dump($u);exit;
         if($res){
-            return '已存在';
+            return '登陆成功';
         }else{
             $data=[
-                'u_name'=>$name
+                'name'=>$name
             ];
             $id=userModel::insertGetId($data);
             //var_dump($id);
@@ -576,9 +576,9 @@ class weChatController extends Controller
             ];
             $arr=[
                 'uid'=>$id,
-                'openid' => $openid,
+                'openid' => $user_arr['openid'],
                 'add_time' => time(),
-                'nickname' => $user_arr['nickname'],
+                'nickname' => $name,
                 'sex' => $user_arr['sex'],
                 'headimgurl' => $user_arr['headimgurl'],
                 'subscribe_time' => time(),
