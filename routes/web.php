@@ -132,7 +132,7 @@ Route::get('wxlogin','weChat\weChatController@wxlogin');
 Route::get('/wxGetcode','weChat\weChatController@wxGetcode');
 
 //微信 JSSDK
-Route::get('/weixin/jssdkTest','Weixin\WeixinController@jssdkTest');       // 测试
+Route::get('/jssdkTest','weChat\weChatController@jssdkTest');       // 测试
 
 
 
