@@ -131,6 +131,8 @@ Route::get('wxlogin','weChat\weChatController@wxlogin');
 //接收code
 Route::get('/wxGetcode','weChat\weChatController@wxGetcode');
 
+//微信 JSSDK
+Route::get('/weixin/jssdkTest','Weixin\WeixinController@jssdkTest');       // 测试
 
 
 
