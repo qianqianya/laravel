@@ -133,9 +133,3 @@ Route::get('/wxGetcode','weChat\weChatController@wxGetcode');
 
 //微信 JSSDK
 Route::get('/jssdkTest','weChat\weChatController@jssdkTest');       // 测试
-
-
-
-
-
-
