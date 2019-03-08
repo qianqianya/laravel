@@ -124,6 +124,14 @@ class weChatController extends Controller
         echo '</pre>';
         return $data;
     }
-
+    public function userList(){
+        $list  =WeixinUser ::paginate(5);
+        //print_r($res);exit;
+        //var_dump($res);exit;
+        $data=[
+            'list'=>$list
+        ];
+        return view('check.check',$data);
+    }
 
 }

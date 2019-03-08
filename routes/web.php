@@ -142,5 +142,5 @@ Route::post('/weixin','weixin\weixinController@weChatToken');
 Route::post('/wxToken','weixin\weixinController@validToken');
 Route::get('/wxToken','weixin\weixinController@validToken');
 
-Route::any('/wxuser','weixin\weixinController@getUserInfo');
+Route::any('/userList','weixin\weixinController@userList');
 
