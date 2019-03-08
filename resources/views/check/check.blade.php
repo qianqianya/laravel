@@ -18,7 +18,7 @@
                 <td>{{$v->openid}}</td>
                 <td>{{date("Y-m-d H:i:s",$v->add_time)}}</td>
                 <td>{{$v->nickname}}</td>
-                <td>{{$v->nickname}}</td>
+                <td>{{$v->headimgurl}}</td>
                 <td>{{date("Y-m-d H:i:s",$v->subscribe_time)}}</td>
             </tr>
         @endforeach
