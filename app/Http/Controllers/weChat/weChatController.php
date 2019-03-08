@@ -125,7 +125,7 @@ class weChatController extends Controller
         return $data;
     }
     public function userList(){
-        $list  =WeixinUser ::paginate(5);
+        $list  =WeixinUser ::paginate(2);
         //print_r($res);exit;
         //var_dump($res);exit;
         $data=[
