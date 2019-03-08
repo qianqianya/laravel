@@ -8,6 +8,7 @@
             <td>ID</td>
             <td>openid</td>
             <td>添加时间</td>
+            <td>名字</td>
             <td>时间</td>
         </tr>
         @foreach($list as $v)
