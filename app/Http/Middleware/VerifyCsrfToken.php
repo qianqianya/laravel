@@ -18,6 +18,8 @@ class VerifyCsrfToken extends Middleware
         '/weChat',
         '/weChatToken',
         '/material',
-        '/payNotice'
+        '/payNotice',
+         '/weixin',
+        '/wxToken',
     ];
 }
