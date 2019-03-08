@@ -9,6 +9,7 @@
             <td>openid</td>
             <td>添加时间</td>
             <td>名字</td>
+            <td>头像</td>
             <td>时间</td>
         </tr>
         @foreach($list as $v)
@@ -17,6 +18,7 @@
                 <td>{{$v->openid}}</td>
                 <td>{{date("Y-m-d H:i:s",$v->add_time)}}</td>
                 <td>{{$v->nickname}}</td>
+                <td><img src="{{$v->headimgurl}}" alt=""></td>
                 <td>{{date("Y-m-d H:i:s",$v->subscribe_time)}}</td>
             </tr>
         @endforeach
