@@ -133,3 +133,12 @@ Route::get('/wxGetcode','weChat\weChatController@wxGetcode');
 
 //微信 JSSDK
 Route::get('/jssdkTest','weChat\weChatController@jssdkTest');       // 测试
+
+
+Route::get('/weixin','weixin\weixinController@weChat');
+
+Route::post('/weixin','weixin\weixinController@weChatToken');
+
+Route::post('/wxToken','weixin\weixinController@validToken');
+Route::get('/wxToken','weixin\weixinController@validToken');
+

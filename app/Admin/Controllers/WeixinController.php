@@ -93,7 +93,7 @@ class WeixinController extends Controller
         });
         $grid->add_time('Add time')->display(function($time){
             return date('Y-m-d H:s:i',$time);
-        });;
+        });
         $grid->nickname('Nickname');
         $grid->sex('Sex');
         $grid->headimgurl('Headimgurl')->display(function($img_url){
