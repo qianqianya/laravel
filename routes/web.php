@@ -143,9 +143,3 @@ Route::post('/wxToken','weixin\weixinController@validToken');
 Route::get('/wxToken','weixin\weixinController@validToken');
 
 Route::any('/userList','weChat\weChatController@userList');
-
-
-
-
-
-
