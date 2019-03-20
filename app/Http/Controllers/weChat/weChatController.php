@@ -663,7 +663,7 @@ class weChatController extends Controller
 
     }
     public function zhenji(){
-        echo 111;
+        return  json_encode(111);
     }
 
 
