@@ -7,9 +7,6 @@ use App\Http\Controllers\Controller;
 class ZhenjiController extends Controller
 {
     public function zhenji(){
-        $data=[
-            'title'=>'登录页面'
-        ];
-        return view('login.login',$data);
+        return json_encode(111);
     }
 }
