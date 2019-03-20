@@ -146,6 +146,7 @@ Route::any('/userList','weChat\weChatController@userList');
 
 Route::get('/zhenji','zhenji\ZhenjiController@zhenji');
 Route::get('/login','zhenji\ZhenjiController@login');
+Route::get('/reg','zhenji\ZhenjiController@reg');
 
 
 
