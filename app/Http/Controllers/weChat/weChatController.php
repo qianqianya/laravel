@@ -645,7 +645,6 @@ class weChatController extends Controller
      */
     public function getJsapiTicket()
     {
-
         //是否有缓存
         $ticket = Redis::get($this->redis_weixin_jsapi_ticket);
         if(!$ticket){           // 无缓存 请求接口
@@ -662,6 +661,9 @@ class weChatController extends Controller
         }
         return $ticket;
 
+    }
+    public function zhenji(){
+        echo 111;
     }
 
 
