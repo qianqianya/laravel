@@ -18,7 +18,7 @@ Route::get('/', function () {
 Route::any('userAdd', 'User\UserController@userAdd');
 
 //用户登录
-Route::any('loginAdd', 'User\UserController@loginAdd');
+Route::get('loginAdd', 'User\UserController@loginAdd');
 
 //个人中心
 Route::any('center','User\UserController@center');
