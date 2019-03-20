@@ -35,26 +35,28 @@ class ZhenjiController extends Controller
         }
 
     }
-    public function reg(Request $request){
+    public function reg(Request $request)
+    {
         $u_email = $request->input('u_email');
         $u_pwd = $request->input('u_pwd');
 
 
-        $res =  userModel::insert(['user_name'=>$u_email,'user_pwd'=>$u_pwd]);
-        if($res){
+        $res = userModel::insert(['u_name' => $u_email, 'u_pwd' => $u_pwd]);
+        if ($res) {
             return json_encode(
                 [
-                    'status'=>1000,
-                    'msg'=>'注册成功'
+                    'status' => 1000,
+                    'msg' => '注册成功'
                 ]
             );
-        }else{
+        } else {
             return json_encode(
                 [
-                    'status'=>1,
-                    'msg'=>'注册失败'
+                    'status' => 1,
+                    'msg' => '注册失败'
                 ]
             );
 
         }
+    }
 }
