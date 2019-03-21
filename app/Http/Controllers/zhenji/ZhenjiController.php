@@ -43,7 +43,7 @@ class ZhenjiController extends Controller
         $u_tel = $request->input('u_tel');
 
 
-        $res = userModel::insert(['u_email' => $u_email, 'u_pwd' => $u_pwd,'u_tel'=>$u_tel,'u_name'=>$u_name]);
+        $res = userModel::insert(['u_email' => $u_email, 'u_pwd' => md5($u_pwd),'u_tel'=>$u_tel,'u_name'=>$u_name]);
         if ($res) {
             return json_encode(
                 [
