@@ -37,12 +37,13 @@ class ZhenjiController extends Controller
     }
     public function reg(Request $request)
     {
+        $u_name = $request->input('u_name');
         $u_email = $request->input('u_email');
         $u_pwd = $request->input('u_pwd');
         $u_tel = $request->input('u_tel');
 
 
-        $res = userModel::insert(['u_email' => $u_email, 'u_pwd' => $u_pwd,'u_tel'=>$u_tel]);
+        $res = userModel::insert(['u_email' => $u_email, 'u_pwd' => $u_pwd,'u_tel'=>$u_tel,'u_name'=>$u_name]);
         if ($res) {
             return json_encode(
                 [
