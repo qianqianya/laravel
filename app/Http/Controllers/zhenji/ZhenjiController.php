@@ -31,9 +31,9 @@ class ZhenjiController extends Controller
         $res=curl_exec($ch);
         curl_close($ch);
         $r=json_encode($res,true);
-        if ($r['error']==0) {
+        if ($r['status']==0) {
             $r= [
-                'error'=>0,
+                'status'=>1000,
                 'token' => $r['token'],
                 'msg' => '登录成功'
             ];
