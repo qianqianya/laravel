@@ -17,19 +17,26 @@ class ZhenjiController extends Controller
         $u_email = $request->input('u_email');
         $u_pwd = $request->input('u_pwd');
 
-        $res = userModel::where(['u_email' => $u_email, 'u_pwd' => $u_pwd])->first();
-        if ($res) {
+        //$res = userModel::where(['u_email' => $u_email, 'u_pwd' => $u_pwd])->first();
+        $data=[
+            'u_email'=>$u_email,
+            'u_pwd'=>$u_pwd
+        ];
+        $url='http://passport.qianqianya.xyz/api/login';
+        $ch=curl_init($url);
+        curl_setopt($ch,CURLOPT_POST,1);
+        curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch,CURLOPT_HEADER,0);
+        $res=curl_exec($ch);
+        curl_close($ch);
+        $r=json_encode($res,true);
+        if ($r['error']==0) {
             return json_encode(
                 [
-                    'status' => 1000,
+                    'error'=>0,
+                    'token' => $r['token'],
                     'msg' => '登录成功'
-                ]
-            );
-        } else {
-            return json_encode(
-                [
-                    'status' => 1,
-                    'msg' => '账号或密码错误'
                 ]
             );
         }
