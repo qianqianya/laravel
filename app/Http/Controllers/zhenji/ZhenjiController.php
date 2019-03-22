@@ -22,13 +22,13 @@ class ZhenjiController extends Controller
             'u_email'=>$u_email,
             'u_pwd'=>$u_pwd
         ];
-        echo json_encode($data);die;
+        //echo json_encode($data);die;
         $url='http://passport.qianqianya.xyz/api/passport';
         $ch=curl_init($url);
+        curl_setopt($ch,CURLOPT_HEADER,0);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
         curl_setopt($ch,CURLOPT_POST,1);
         curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch,CURLOPT_HEADER,0);
         $res=curl_exec($ch);
         curl_close($ch);
         var_dump($res);
