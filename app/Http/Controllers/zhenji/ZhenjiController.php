@@ -22,6 +22,7 @@ class ZhenjiController extends Controller
             'u_email'=>$u_email,
             'u_pwd'=>$u_pwd
         ];
+        echo json_encode($data);die;
         $url='http://passport.qianqianya.xyz/api/login';
         $ch=curl_init($url);
         curl_setopt($ch,CURLOPT_POST,1);
