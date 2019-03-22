@@ -22,6 +22,7 @@ class ZhenjiController extends Controller
             'u_email'=>$u_email,
             'u_pwd'=>$u_pwd
         ];
+        echo json_encode($data);die;
         $url='http://passport.qianqianya.xyz/api/passport';
         $ch=curl_init($url);
         curl_setopt($ch,CURLOPT_POST,1);
@@ -30,15 +31,7 @@ class ZhenjiController extends Controller
         curl_setopt($ch,CURLOPT_HEADER,0);
         $res=curl_exec($ch);
         curl_close($ch);
-        $r=json_encode($res,true);
-        if ($r['status']==0) {
-            $r= [
-                'status'=>1000,
-                'token' => $r['token'],
-                'msg' => '登录成功'
-            ];
-        }
-        return $r;
+        var_dump($res);
 
     }
     public function reg(Request $request)
