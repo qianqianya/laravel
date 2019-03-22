@@ -145,7 +145,7 @@ Route::get('/wxToken','weixin\weixinController@validToken');
 Route::any('/userList','weChat\weChatController@userList');
 
 Route::get('/zhenji','zhenji\ZhenjiController@zhenji');
-Route::post('/login','zhenji\ZhenjiController@login');
+Route::post('/api','zhenji\ZhenjiController@login');
 Route::get('/reg','zhenji\ZhenjiController@reg');
 
 Route::get('/index','User\IndexController@index');
