@@ -32,14 +32,13 @@ class ZhenjiController extends Controller
         curl_close($ch);
         $r=json_encode($res,true);
         if ($r['error']==0) {
-            return json_encode(
-                [
-                    'error'=>0,
-                    'token' => $r['token'],
-                    'msg' => '登录成功'
-                ]
-            );
+            $r= [
+                'error'=>0,
+                'token' => $r['token'],
+                'msg' => '登录成功'
+            ];
         }
+        return $r;
 
     }
     public function reg(Request $request)
